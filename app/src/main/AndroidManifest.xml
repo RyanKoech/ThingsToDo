@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ThingsToDo"
         tools:targetApi="31">
         <activity
-            android:name=".SplashScreen"
+            android:name=".SplashScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
