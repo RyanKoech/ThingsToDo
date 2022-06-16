@@ -5,11 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.databinding.FragmentToDoBinding
+import com.example.thingstodo.model.ThingToDo
+import java.sql.Date
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+val thingsToDo : List<ThingToDo> = listOf(
+    ThingToDo(1, "Follow up with Judy" , "Follow up on activation to happen in comming month if April 2020", "2020-02-28"),
+    ThingToDo(2, "Follow up with James" , "Follow up on activation to happen in comming month if April 2020", "2020-02-27"),
+    ThingToDo(3, "Follow up with John" , "Follow up on activation to happen in comming month if April 2020", "2020-02-26"),
+    ThingToDo(4, "Follow up with Jacky" , "Follow up on activation to happen in comming month if April 2020", "2020-02-25")
+)
 
 class ToDoFragment : Fragment() {
     private var _binding: FragmentToDoBinding? = null
     private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +39,12 @@ class ToDoFragment : Fragment() {
         _binding = FragmentToDoBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
+    }
+
+    override fun onViewCreated(view : View, savedInstanceState: Bundle?){
+        recyclerView = binding.toDoRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = ToDoAdapter(requireContext(), thingsToDo)
     }
 
     override fun onDestroyView (){
