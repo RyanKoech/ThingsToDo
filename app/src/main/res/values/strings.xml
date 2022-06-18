@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Things To Do</string>
+    <string name="title_text">Title</string>
+    <string name="description_text">Description</string>
+    <string name="date_text">Date</string>
+    <string name="time_text">Time</string>
 </resources>
