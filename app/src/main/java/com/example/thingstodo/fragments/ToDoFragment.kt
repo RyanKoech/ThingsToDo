@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.databinding.FragmentToDoBinding
 import com.example.thingstodo.model.ThingToDo
+import com.google.android.material.snackbar.Snackbar
 import java.sql.Date
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -38,6 +41,11 @@ class ToDoFragment : Fragment() {
 
         _binding = FragmentToDoBinding.inflate(inflater, container, false)
         val view = binding.root
+        binding.toDoListFab.setOnClickListener{ view ->
+            val action = R.id.action_toDoFragment2_to_addToDo
+            this.view?.findNavController()?.navigate(action)
+        }
+
         return view
     }
 
