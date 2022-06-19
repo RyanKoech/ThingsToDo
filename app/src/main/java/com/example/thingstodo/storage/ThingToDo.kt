@@ -11,6 +11,6 @@ data class ThingToDo(
     val id : Int,
     val name: String,
     val description: String,
-    @ColumnInfo(name = "date_time")
-    val datetime: Date
+    @ColumnInfo(name = "time_stamp")
+    val timeStamp: Date
 )
