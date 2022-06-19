@@ -5,7 +5,7 @@ import com.example.thingstodo.storage.model.ThingToDo
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ThingToDo {
+interface ThingToDoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertThingToDo(thingToDo: ThingToDo)
