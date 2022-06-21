@@ -57,7 +57,10 @@ class ToDoFragment : Fragment() {
     override fun onViewCreated(view : View, savedInstanceState: Bundle?){
         recyclerView = binding.toDoRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = ToDoAdapter(requireContext())
+        val adapter = ToDoAdapter(requireContext()) { view ->
+            val action = ToDoFragmentDirections.actionToDoFragment2ToThingToDoFragment()
+            view.findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
         viewModel.allThingsToDo.observe(this.viewLifecycleOwner) { items ->
             items.let{
