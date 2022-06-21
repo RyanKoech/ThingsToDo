@@ -10,13 +10,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thingstodo.R
 import com.example.thingstodo.storage.model.ThingToDo
+import com.google.android.material.card.MaterialCardView
 
 class ToDoAdapter(
-    private val context: Context
+    private val context: Context,
+    private val navCallBack: (view : View) -> Unit
 ) : ListAdapter<ThingToDo, ToDoAdapter.ToDoViewHolder>(diffCallBack) {
 
     class ToDoViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        // val toDoListItem : MaterialCardView = view.findViewById(R.id.to_do_list_item)
+        val toDoListItem : MaterialCardView = view.findViewById(R.id.to_do_list_item)
         val toDoName : TextView = view.findViewById(R.id.to_do_name)
         val toDoDate : TextView = view.findViewById(R.id.to_do_date)
     }
@@ -30,6 +32,7 @@ class ToDoAdapter(
 
     override fun onBindViewHolder(holder: ToDoViewHolder, postion: Int) {
         val itemToDo = getItem(postion)
+        holder.toDoListItem.setOnClickListener(navCallBack)
         holder.toDoName.text = itemToDo.name
         holder.toDoDate.text = itemToDo.timeStamp.toString()
     }
