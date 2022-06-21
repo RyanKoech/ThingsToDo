@@ -8,7 +8,7 @@ import java.util.*
 @Entity(tableName = "thing_to_do")
 data class ThingToDo(
     @PrimaryKey(autoGenerate = true)
-    val id : Int,
+    val id : Int = 0,
     val name: String,
     val description: String,
     @ColumnInfo(name = "time_stamp")
