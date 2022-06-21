@@ -16,7 +16,7 @@ import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
 import java.text.SimpleDateFormat
 import java.util.*
 
-class AddToDo : Fragment() {
+class AddToDoFragment : Fragment() {
     private var _binding : FragmentAddToDoBinding? = null
     private val binding get() = _binding!!
     private val calender = Calendar.getInstance()

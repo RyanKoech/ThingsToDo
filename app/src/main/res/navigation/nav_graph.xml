@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/addToDo"
-        android:name="com.example.thingstodo.fragments.AddToDo"
+        android:name="com.example.thingstodo.fragments.AddToDoFragment"
         android:label="fragment_add_to_do"
         tools:layout="@layout/fragment_add_to_do" />
 </navigation>
