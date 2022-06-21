@@ -69,9 +69,7 @@ class AddToDo : Fragment() {
             if(isError){
                 Toast.makeText(requireContext(), "Please Fill in All Fields", Toast.LENGTH_SHORT).show()
             }else{
-                System.out.println(binding.titleInput.text)
-                System.out.println(binding.descriptionInput.text)
-                System.out.println(calender.time)
+                addNewItem()
             }
         }
 
@@ -152,5 +150,9 @@ class AddToDo : Fragment() {
         }
 
         return isError
+    }
+
+    private fun addNewItem() {
+        viewModel.addNewThingToDo(binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
     }
 }
