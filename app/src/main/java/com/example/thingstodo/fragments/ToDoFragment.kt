@@ -22,13 +22,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-val thingsToDo : List<ThingToDo> = listOf(
-    ThingToDo(1, "Follow up with Judy" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time),
-    ThingToDo(2, "Follow up with James" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time),
-    ThingToDo(3, "Follow up with John" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time),
-    ThingToDo(4, "Follow up with Jacky" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time)
-)
-
 class ToDoFragment : Fragment() {
     private var _binding: FragmentToDoBinding? = null
     private val binding get() = _binding!!
