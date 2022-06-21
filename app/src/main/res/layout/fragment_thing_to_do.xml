@@ -3,6 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ThingToDoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/title_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/title_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="#808080"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/title_icon"
+            android:layout_marginLeft="8dp"
+            tools:text="Thing to do Title"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/description_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/text_icon"
+            app:layout_constraintTop_toBottomOf="@id/title_icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="#808080"
+            android:textSize="17sp"
+            app:layout_constraintLeft_toRightOf="@id/description_icon"
+            app:layout_constraintTop_toTopOf="@id/description_icon"
+            tools:text="Thing to do description " />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/date_time_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/date_icon"
+            app:layout_constraintTop_toBottomOf="@id/description_icon"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="#9F9F9F"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/date_time_icon"
+            app:layout_constraintLeft_toRightOf="@id/date_time_icon"
+            app:layout_constraintTop_toTopOf="@id/date_time_icon"
+            tools:text="Mon Jun 20 14:56hrs 2022" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
