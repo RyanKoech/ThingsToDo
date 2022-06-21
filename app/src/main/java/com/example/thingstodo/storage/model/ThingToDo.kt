@@ -12,5 +12,7 @@ data class ThingToDo(
     val name: String,
     val description: String,
     @ColumnInfo(name = "time_stamp")
-    val timeStamp: Date
+    val timeStamp: Date,
+    @ColumnInfo(name = "is_done")
+    val done : Boolean = false
 )

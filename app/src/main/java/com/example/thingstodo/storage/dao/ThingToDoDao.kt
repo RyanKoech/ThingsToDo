@@ -19,6 +19,6 @@ interface ThingToDoDao {
     @Query("SELECT * FROM thing_to_do WHERE id = :id")
     fun getThingToDo(id: Int) : Flow<ThingToDo>
 
-    @Query("SELECT * FROM thing_to_do ORDER BY time_stamp ASC")
+    @Query("SELECT * FROM thing_to_do WhERE is_done = 0 ORDER BY time_stamp ASC")
     fun getThingsToDo() : Flow<List<ThingToDo>>
 }
