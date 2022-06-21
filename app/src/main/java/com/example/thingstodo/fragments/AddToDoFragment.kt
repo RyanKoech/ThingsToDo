@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.thingstodo.databinding.FragmentAddToDoBinding
-import com.example.thingstodo.storage.application.ThingToDoApplication
+import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
 import java.text.SimpleDateFormat

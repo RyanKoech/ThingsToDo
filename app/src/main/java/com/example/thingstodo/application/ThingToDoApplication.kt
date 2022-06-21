@@ -1,4 +1,4 @@
-package com.example.thingstodo.storage.application
+package com.example.thingstodo.application
 
 import android.app.Application
 import com.example.thingstodo.storage.database.ThingToDoRoomDatabase
