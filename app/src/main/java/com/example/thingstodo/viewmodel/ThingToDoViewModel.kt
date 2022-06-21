@@ -1,15 +1,15 @@
 package com.example.thingstodo.viewmodel
 
 import android.view.View
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.thingstodo.storage.dao.ThingToDoDao
 import com.example.thingstodo.storage.model.ThingToDo
 import kotlinx.coroutines.launch
 import java.util.*
 
 class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
+
+    val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
 
     private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date): ThingToDo{
         return ThingToDo(
