@@ -64,37 +64,7 @@ class AddToDo : Fragment() {
 
         binding.addToDoFab.setOnClickListener{ view ->
 
-            var isError = false
-
-            binding.titleInput.apply {
-                 if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
-                     error = "Should not be empty"
-                     isError = true
-                 }
-            }
-
-            binding.descriptionInput.apply {
-                if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
-                    error = "should not be empty"
-                    isError = true
-                }
-            }
-
-
-            binding.dateInput.apply {
-                if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
-                    error = "should not be empty"
-                    isError = true
-                }
-            }
-
-
-            binding.timeInput.apply {
-                if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
-                    error = "should not be empty"
-                    isError = true
-                }
-            }
+            var isError = areFieldsEmpty()
 
             if(isError){
                 Toast.makeText(requireContext(), "Please Fill in All Fields", Toast.LENGTH_SHORT).show()
@@ -147,5 +117,40 @@ class AddToDo : Fragment() {
                 getDateString(calender)
             )
         }
+    }
+
+    private fun areFieldsEmpty() : Boolean{
+
+        var isError = false
+
+        binding.titleInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "Should not be empty"
+                isError = true
+            }
+        }
+
+        binding.descriptionInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "should not be empty"
+                isError = true
+            }
+        }
+
+        binding.dateInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "should not be empty"
+                isError = true
+            }
+        }
+
+        binding.timeInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "should not be empty"
+                isError = true
+            }
+        }
+
+        return isError
     }
 }
