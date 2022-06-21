@@ -11,17 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.databinding.FragmentToDoBinding
-import com.example.thingstodo.model.ThingToDo
+import com.example.thingstodo.storage.model.ThingToDo
 import com.google.android.material.snackbar.Snackbar
 import java.sql.Date
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 val thingsToDo : List<ThingToDo> = listOf(
-    ThingToDo(1, "Follow up with Judy" , "Follow up on activation to happen in comming month if April 2020", "2020-02-28"),
-    ThingToDo(2, "Follow up with James" , "Follow up on activation to happen in comming month if April 2020", "2020-02-27"),
-    ThingToDo(3, "Follow up with John" , "Follow up on activation to happen in comming month if April 2020", "2020-02-26"),
-    ThingToDo(4, "Follow up with Jacky" , "Follow up on activation to happen in comming month if April 2020", "2020-02-25")
+    ThingToDo(1, "Follow up with Judy" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time),
+    ThingToDo(2, "Follow up with James" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time),
+    ThingToDo(3, "Follow up with John" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time),
+    ThingToDo(4, "Follow up with Jacky" , "Follow up on activation to happen in comming month if April 2020", Calendar.getInstance().time)
 )
 
 class ToDoFragment : Fragment() {

@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thingstodo.R
-import com.example.thingstodo.model.ThingToDo
-import com.google.android.material.card.MaterialCardView
+import com.example.thingstodo.storage.model.ThingToDo
 
 class ToDoAdapter(
     private val context: Context,
@@ -35,7 +34,7 @@ class ToDoAdapter(
     override fun onBindViewHolder(holder: ToDoViewHolder, postion: Int) {
         val itemToDo = thingsDoTo[postion]
         holder.toDoName.text = itemToDo.name
-        holder.toDoDate.text = itemToDo.date.toString()
+        holder.toDoDate.text = itemToDo.timeStamp.toString()
     }
 
 }
