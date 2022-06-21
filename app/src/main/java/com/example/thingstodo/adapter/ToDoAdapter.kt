@@ -12,18 +12,13 @@ import com.example.thingstodo.R
 import com.example.thingstodo.storage.model.ThingToDo
 
 class ToDoAdapter(
-    private val context: Context,
-    private val thingsDoTo : List<ThingToDo>
+    private val context: Context
 ) : ListAdapter<ThingToDo, ToDoAdapter.ToDoViewHolder>(diffCallBack) {
 
     class ToDoViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         // val toDoListItem : MaterialCardView = view.findViewById(R.id.to_do_list_item)
         val toDoName : TextView = view.findViewById(R.id.to_do_name)
         val toDoDate : TextView = view.findViewById(R.id.to_do_date)
-    }
-
-    override fun getItemCount(): Int {
-        return thingsDoTo.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ToDoViewHolder {
@@ -34,7 +29,7 @@ class ToDoAdapter(
     }
 
     override fun onBindViewHolder(holder: ToDoViewHolder, postion: Int) {
-        val itemToDo = thingsDoTo[postion]
+        val itemToDo = getItem(postion)
         holder.toDoName.text = itemToDo.name
         holder.toDoDate.text = itemToDo.timeStamp.toString()
     }
