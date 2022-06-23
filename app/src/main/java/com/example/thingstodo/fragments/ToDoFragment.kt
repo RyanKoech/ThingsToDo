@@ -69,4 +69,16 @@ class ToDoFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         inflater.inflate(R.menu.main_menu, menu)
     }
+
+    override fun onOptionsItemSelected(item : MenuItem) : Boolean {
+
+        return when(item.itemId){
+            R.id.action_settings -> {
+                val action = ToDoFragmentDirections.actionToDoFragmentToSettingsFragment()
+                this.view?.findNavController()?.navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
