@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/toDoFragment2">
+    app:startDestination="@id/toDoFragment">
 
     <fragment
-        android:id="@+id/toDoFragment2"
+        android:id="@+id/toDoFragment"
         android:name="com.example.thingstodo.fragments.ToDoFragment"
         android:label="fragment_to_do"
         tools:layout="@layout/fragment_to_do" >
         <action
-            android:id="@+id/action_toDoFragment2_to_addToDo"
+            android:id="@+id/action_toDoFragment_to_addToDo"
             app:destination="@id/addToDo" />
         <action
-            android:id="@+id/action_toDoFragment2_to_thingToDoFragment"
+            android:id="@+id/action_toDoFragment_to_thingToDoFragment"
             app:destination="@id/thingToDoFragment" />
     </fragment>
     <fragment
