@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.thingstodo.databinding.FragmentAddToDoBinding
 import com.example.thingstodo.application.ThingToDoApplication
+import com.example.thingstodo.utilities.CustomUtility
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
-import java.text.SimpleDateFormat
+import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
 class AddToDoFragment : Fragment() {
@@ -41,10 +42,9 @@ class AddToDoFragment : Fragment() {
 
         _binding = FragmentAddToDoBinding.inflate(inflater, container, false)
         val view = binding.root
-        val  datePicker = getDatePickerListener()
-        val  timePicker = getTimePickerListener()
 
         binding.dateInput.apply {
+            val  datePicker = CustomUtility.getDatePickerListener(this, calender)
             isFocusable = false
             setOnClickListener{ view ->
                 DatePickerDialog(
@@ -54,6 +54,7 @@ class AddToDoFragment : Fragment() {
         }
 
         binding.timeInput.apply {
+            val  timePicker = CustomUtility.getTimePickerListener(this, calender)
             isFocusable = false
             setOnClickListener{ view ->
                 TimePickerDialog(
@@ -79,42 +80,6 @@ class AddToDoFragment : Fragment() {
     override fun onDestroyView(){
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun getDateString(calendar: Calendar): String{
-        val dateFormat = "dd-MM-yyyy"
-        val simpleDateFormat = SimpleDateFormat(dateFormat)
-        return simpleDateFormat.format(calendar.time)
-    }
-
-    private fun getTimeString(calendar: Calendar): String{
-        val timeFormat = "HH:mm"
-        val simpleDateFormat = SimpleDateFormat(timeFormat)
-        return simpleDateFormat.format(calendar.time)
-    }
-
-    private fun getTimePickerListener() : TimePickerDialog.OnTimeSetListener {
-        return TimePickerDialog.OnTimeSetListener { view, hour, minute ->
-            calender.set(Calendar.HOUR, hour)
-            calender.set(Calendar.MINUTE, minute)
-            calender.set(Calendar.SECOND, 0)
-            binding.timeInput.setText(
-                getTimeString(calender)
-            )
-        }
-    }
-
-    private fun getDatePickerListener() : DatePickerDialog.OnDateSetListener {
-        return DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            calender.set(Calendar.YEAR, year)
-            calender.set(Calendar.MONTH, month)
-            calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            calender.set(Calendar.HOUR, 13)
-            calender.set(Calendar.MINUTE, 24)
-            binding.dateInput.setText(
-                getDateString(calender)
-            )
-        }
     }
 
     private fun areFieldsEmpty() : Boolean{
