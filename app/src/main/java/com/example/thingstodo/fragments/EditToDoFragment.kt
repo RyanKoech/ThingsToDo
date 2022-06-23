@@ -3,13 +3,12 @@ package com.example.thingstodo.fragments
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.example.thingstodo.R
 import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentEditToDoBinding
 import com.example.thingstodo.utilities.CustomUtility
@@ -101,6 +100,9 @@ class EditToDoFragment : Fragment() {
         _binding = null
     }
 
+    override fun onCreateOptionsMenu(menu : Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.edit_to_do_menu, menu)
+    }
 
     private fun areFieldsEmpty() : Boolean{
 
