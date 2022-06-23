@@ -2,15 +2,20 @@ package com.example.thingstodo.fragments
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thingstodo.MainActivity
 import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentToDoBinding
+import com.example.thingstodo.storage.model.ThingToDo
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
 
@@ -18,6 +23,10 @@ class ToDoFragment : Fragment() {
     private var _binding: FragmentToDoBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
+    private val showDone : MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>(false)
+    }
+
 
     private val viewModel : ThingToDoViewModel by activityViewModels{
         ThingToDoViewModelFactor(
@@ -54,9 +63,23 @@ class ToDoFragment : Fragment() {
             view.findNavController().navigate(action)
         }
         recyclerView.adapter = adapter
-        viewModel.allThingsToDo.observe(this.viewLifecycleOwner) { items ->
-            items.let{
-                adapter.submitList(it)
+
+        showDone.observe(this.viewLifecycleOwner){ newValue ->
+
+            System.out.println(newValue)
+            val observableList : LiveData<List<ThingToDo>>
+
+            if(newValue == true){
+                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do_done)
+                observableList = viewModel.allThingsDone
+            }else {
+                observableList = viewModel.allThingsToDo
+                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do)
+            }
+            observableList.observe(this.viewLifecycleOwner) { items ->
+                items.let{
+                    adapter.submitList(it)
+                }
             }
         }
     }
@@ -68,6 +91,7 @@ class ToDoFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         inflater.inflate(R.menu.main_menu, menu)
+        menu.findItem(R.id.action_show_done).isChecked = showDone.value == true
     }
 
     override fun onOptionsItemSelected(item : MenuItem) : Boolean {
@@ -77,6 +101,19 @@ class ToDoFragment : Fragment() {
                 val action = ToDoFragmentDirections.actionToDoFragmentToSettingsFragment()
                 this.view?.findNavController()?.navigate(action)
                 true
+            }
+            R.id.action_show_done -> {
+                if (item.isChecked){
+                    item.isChecked = false
+                    showDone.value = false
+                    System.out.println(showDone.value)
+                }
+                else{
+                    item.isChecked = true
+                    showDone.value = true
+                    System.out.println(showDone.value)
+                }
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }
