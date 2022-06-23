@@ -14,7 +14,7 @@ import com.google.android.material.card.MaterialCardView
 
 class ToDoAdapter(
     private val context: Context,
-    private val navCallBack: (view : View) -> Unit
+    private val navCallBack: (view : View, id : Int) -> Unit
 ) : ListAdapter<ThingToDo, ToDoAdapter.ToDoViewHolder>(diffCallBack) {
 
     class ToDoViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -32,7 +32,9 @@ class ToDoAdapter(
 
     override fun onBindViewHolder(holder: ToDoViewHolder, postion: Int) {
         val itemToDo = getItem(postion)
-        holder.toDoListItem.setOnClickListener(navCallBack)
+        holder.toDoListItem.setOnClickListener{ view ->
+            navCallBack(view, itemToDo.id)
+        }
         holder.toDoName.text = itemToDo.name
         holder.toDoDate.text = itemToDo.timeStamp.toString()
     }
