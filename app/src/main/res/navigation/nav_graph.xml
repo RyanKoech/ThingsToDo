@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/toDoFragment"
         android:name="com.example.thingstodo.fragments.ToDoFragment"
-        android:label="fragment_to_do"
-        tools:layout="@layout/fragment_to_do" >
+        android:label="@string/fragment_to_do"
+        tools:layout="@layout/fragment_to_do">
         <action
             android:id="@+id/action_toDoFragment_to_addToDo"
             app:destination="@id/addToDo" />
@@ -20,8 +20,8 @@
     <fragment
         android:id="@+id/addToDo"
         android:name="com.example.thingstodo.fragments.AddToDoFragment"
-        android:label="fragment_add_to_do"
-        tools:layout="@layout/fragment_add_to_do" >
+        android:label="@string/fragment_add_to_do"
+        tools:layout="@layout/fragment_add_to_do">
         <action
             android:id="@+id/action_addToDo_to_toDoFragment"
             app:destination="@id/toDoFragment"
@@ -31,8 +31,8 @@
     <fragment
         android:id="@+id/thingToDoFragment"
         android:name="com.example.thingstodo.fragments.ThingToDoFragment"
-        android:label="fragment_thing_to_do"
-        tools:layout="@layout/fragment_thing_to_do" >
+        android:label="@string/fragment_thing_to_do"
+        tools:layout="@layout/fragment_thing_to_do">
         <argument
             android:name="id"
             app:argType="integer" />
@@ -43,8 +43,8 @@
     <fragment
         android:id="@+id/editToDoFragment"
         android:name="com.example.thingstodo.fragments.EditToDoFragment"
-        android:label="fragment_edit_to_do"
-        tools:layout="@layout/fragment_edit_to_do" >
+        android:label="@string/fragment_edit_to_do"
+        tools:layout="@layout/fragment_edit_to_do">
         <argument
             android:name="id"
             app:argType="integer" />
