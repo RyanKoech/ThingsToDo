@@ -1,9 +1,12 @@
 package com.example.thingstodo.fragments
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.thingstodo.application.ThingToDoApplication
@@ -11,6 +14,7 @@ import com.example.thingstodo.databinding.FragmentEditToDoBinding
 import com.example.thingstodo.utilities.CustomUtility
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
+import java.util.*
 import kotlin.properties.Delegates
 
 class EditToDoFragment : Fragment() {
@@ -22,6 +26,7 @@ class EditToDoFragment : Fragment() {
     private var _binding : FragmentEditToDoBinding? = null
     private val binding get() = _binding!!
     private var thingToDoId by Delegates.notNull<Int>()
+    private val calender = Calendar.getInstance()
 
     private val viewModel : ThingToDoViewModel by activityViewModels{
         ThingToDoViewModelFactor(
@@ -45,12 +50,45 @@ class EditToDoFragment : Fragment() {
         val view = binding.root
 
         viewModel.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner){ thingTodo ->
+            calender.time = thingTodo.timeStamp
             binding.titleInput.setText(thingTodo.name)
             binding.descriptionInput.setText(thingTodo.description)
             binding.dateInput.setText(CustomUtility.getFormattedDateString(thingTodo.timeStamp))
             binding.timeInput.setText(CustomUtility.getFormattedTimeString(thingTodo.timeStamp))
         }
 
+        binding.dateInput.apply {
+            val  datePicker = CustomUtility.getDatePickerListener(this, calender)
+            isFocusable = false
+            setOnClickListener{ view ->
+                DatePickerDialog(
+                    requireContext(), datePicker, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(
+                        Calendar.DAY_OF_MONTH)
+                ).show()
+            }
+        }
+
+        binding.timeInput.apply {
+            val  timePicker = CustomUtility.getTimePickerListener(this, calender)
+            isFocusable = false
+            setOnClickListener{ view ->
+                TimePickerDialog(
+                    requireContext(), timePicker, calender.get(Calendar.HOUR_OF_DAY), calender.get(
+                        Calendar.MINUTE), false
+                ).show()
+            }
+        }
+
+        binding.editToDoFab.setOnClickListener{ view ->
+
+            var isError = areFieldsEmpty()
+
+            if(isError){
+                Toast.makeText(requireContext(), "Please Fill in All Fields", Toast.LENGTH_SHORT).show()
+            }else{
+                updateThingToDo()
+            }
+        }
 
         return view
     }
@@ -59,4 +97,45 @@ class EditToDoFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
+    private fun areFieldsEmpty() : Boolean{
+
+        var isError = false
+
+        binding.titleInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "Should not be empty"
+                isError = true
+            }
+        }
+
+        binding.descriptionInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "should not be empty"
+                isError = true
+            }
+        }
+
+        binding.dateInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "should not be empty"
+                isError = true
+            }
+        }
+
+        binding.timeInput.apply {
+            if (text.toString().trim().isEmpty() || text.toString().trim().isBlank() ){
+                error = "should not be empty"
+                isError = true
+            }
+        }
+
+        return isError
+    }
+
+    private fun updateThingToDo(){
+        viewModel.updateNewThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
+    }
+
 }
