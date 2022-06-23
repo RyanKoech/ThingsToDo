@@ -26,6 +26,12 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
         }
     }
 
+    private fun updateThingToDo(thingToDo: ThingToDo){
+        viewModelScope.launch{
+            thingToDoDao.updateThingToDo(thingToDo)
+        }
+    }
+
     fun addNewThingToDo(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate)
@@ -35,6 +41,12 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
 
     fun getThingToDo(id :Int): LiveData<ThingToDo>{
         return thingToDoDao.getThingToDo(id).asLiveData()
+    }
+
+    fun updateNewThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
+
+        val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId)
+        updateThingToDo(newThingToDo)
     }
 }
 
