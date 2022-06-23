@@ -11,8 +11,9 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
 
     val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
 
-    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date): ThingToDo{
+    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0): ThingToDo{
         return ThingToDo(
+            id = thingToDoId,
             name = thingToDoName,
             description = thingToDoDescription,
             timeStamp = thingToDoDate
