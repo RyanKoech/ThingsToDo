@@ -143,4 +143,8 @@ class EditToDoFragment : Fragment() {
         viewModel.updateNewThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
     }
 
+    private fun deleteThingToDo(){
+        viewModel.deleteThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
+    }
+
 }

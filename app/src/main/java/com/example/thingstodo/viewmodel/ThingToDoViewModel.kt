@@ -32,6 +32,12 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
         }
     }
 
+    private fun deleteThingToDo(thingToDo: ThingToDo) {
+        viewModelScope.launch {
+            thingToDoDao.deleteThingToDo(thingToDo)
+        }
+    }
+
     fun addNewThingToDo(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate)
@@ -47,6 +53,12 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId)
         updateThingToDo(newThingToDo)
+    }
+
+    fun deleteThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
+
+        val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId)
+        deleteThingToDo(newThingToDo)
     }
 }
 
