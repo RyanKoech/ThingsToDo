@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentEditToDoBinding
 import com.example.thingstodo.utilities.CustomUtility
@@ -87,6 +88,8 @@ class EditToDoFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please Fill in All Fields", Toast.LENGTH_SHORT).show()
             }else{
                 updateThingToDo()
+                val action = EditToDoFragmentDirections.actionEditToDoFragmentToToDoFragment()
+                this.view?.findNavController()?.navigate(action)
             }
         }
 
