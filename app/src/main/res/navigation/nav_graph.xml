@@ -30,5 +30,17 @@
         <argument
             android:name="id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_thingToDoFragment_to_editToDoFragment"
+            app:destination="@id/editToDoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editToDoFragment"
+        android:name="com.example.thingstodo.fragments.EditToDoFragment"
+        android:label="fragment_edit_to_do"
+        tools:layout="@layout/fragment_edit_to_do" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
     </fragment>
 </navigation>
