@@ -1,9 +1,7 @@
 package com.example.thingstodo.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -68,4 +66,7 @@ class ToDoFragment : Fragment() {
         _binding = null
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.main_menu, menu)
+    }
 }
