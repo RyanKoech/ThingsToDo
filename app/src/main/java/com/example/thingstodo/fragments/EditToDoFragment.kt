@@ -104,6 +104,19 @@ class EditToDoFragment : Fragment() {
         inflater.inflate(R.menu.edit_to_do_menu, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId){
+            R.id.action_delete_to_do -> {
+                deleteThingToDo()
+                val action = EditToDoFragmentDirections.actionEditToDoFragmentToToDoFragment()
+                this.view?.findNavController()?.navigate(action)
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun areFieldsEmpty() : Boolean{
 
         var isError = false
