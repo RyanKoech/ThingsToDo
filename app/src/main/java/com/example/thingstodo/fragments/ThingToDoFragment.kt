@@ -43,6 +43,13 @@ class ThingToDoFragment : Fragment() {
 
         _binding = FragmentThingToDoBinding.inflate(inflater, container, false)
         val view = binding.root
+        viewModel.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner) { thingToDo ->
+            thingToDo.let{
+                binding.titleTextView.text = thingToDo.name
+                binding.descriptionTextView.text = thingToDo.description
+                binding.dateTextView.text = thingToDo.timeStamp.toString()
+            }
+        }
 
         return view
     }
