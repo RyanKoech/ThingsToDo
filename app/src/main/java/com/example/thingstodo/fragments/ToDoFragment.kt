@@ -66,7 +66,6 @@ class ToDoFragment : Fragment() {
 
         showDone.observe(this.viewLifecycleOwner){ newValue ->
 
-            System.out.println(newValue)
             val observableList : LiveData<List<ThingToDo>>
 
             if(newValue == true){
