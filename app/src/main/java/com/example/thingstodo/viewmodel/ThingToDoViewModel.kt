@@ -31,6 +31,10 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
         insertThingToDo(newThingToDo)
 
     }
+
+    fun getThingToDo(id :Int): LiveData<ThingToDo>{
+        return thingToDoDao.getThingToDo(id).asLiveData()
+    }
 }
 
 class ThingToDoViewModelFactor(private val thingToDoDao: ThingToDoDao) : ViewModelProvider.Factory {
