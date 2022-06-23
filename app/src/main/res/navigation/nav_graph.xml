@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_toDoFragment_to_thingToDoFragment"
             app:destination="@id/thingToDoFragment" />
+        <action
+            android:id="@+id/action_toDoFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addToDo"
@@ -54,4 +57,9 @@
             app:popUpTo="@id/toDoFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.thingstodo.fragments.SettingsFragment"
+        android:label="@string/fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

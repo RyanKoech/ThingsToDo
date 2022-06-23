@@ -8,4 +8,5 @@
     <string name="fragment_add_to_do">Add Thing To Do</string>
     <string name="fragment_thing_to_do">Thing To Do</string>
     <string name="fragment_edit_to_do">Edit Thing To Do</string>
+    <string name="fragment_settings">Settings</string>
 </resources>
