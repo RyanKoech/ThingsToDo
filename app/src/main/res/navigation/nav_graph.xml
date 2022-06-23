@@ -26,5 +26,9 @@
         android:id="@+id/thingToDoFragment"
         android:name="com.example.thingstodo.fragments.ThingToDoFragment"
         android:label="fragment_thing_to_do"
-        tools:layout="@layout/fragment_thing_to_do" />
+        tools:layout="@layout/fragment_thing_to_do" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>
