@@ -55,6 +55,7 @@ class EditToDoFragment : Fragment() {
             binding.descriptionInput.setText(thingTodo.description)
             binding.dateInput.setText(CustomUtility.getFormattedDateString(thingTodo.timeStamp))
             binding.timeInput.setText(CustomUtility.getFormattedTimeString(thingTodo.timeStamp))
+            binding.doneCheckbox.isChecked = thingTodo.done
         }
 
         binding.dateInput.apply {
@@ -153,7 +154,7 @@ class EditToDoFragment : Fragment() {
     }
 
     private fun updateThingToDo(){
-        viewModel.updateNewThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
+        viewModel.updateNewThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time, binding.doneCheckbox.isChecked)
     }
 
     private fun deleteThingToDo(){

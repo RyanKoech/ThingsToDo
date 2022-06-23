@@ -12,12 +12,13 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
     val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
     val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.getThingsDone().asLiveData()
 
-    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0): ThingToDo{
+    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo{
         return ThingToDo(
             id = thingToDoId,
             name = thingToDoName,
             description = thingToDoDescription,
-            timeStamp = thingToDoDate
+            timeStamp = thingToDoDate,
+            done = isDone
         )
     }
 
@@ -50,9 +51,9 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
         return thingToDoDao.getThingToDo(id).asLiveData()
     }
 
-    fun updateNewThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
+    fun updateNewThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, isDone: Boolean){
 
-        val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId)
+        val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId, isDone)
         updateThingToDo(newThingToDo)
     }
 
