@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.thingstodo.R
 import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentThingToDoBinding
@@ -49,6 +50,11 @@ class ThingToDoFragment : Fragment() {
                 binding.descriptionTextView.text = thingToDo.description
                 binding.dateTextView.text = thingToDo.timeStamp.toString()
             }
+        }
+
+        binding.editThingToDoFab.setOnClickListener{ view ->
+            val action = ThingToDoFragmentDirections.actionThingToDoFragmentToEditToDoFragment(id = thingToDoId)
+            this.view?.findNavController()?.navigate(action)
         }
 
         return view
