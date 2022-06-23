@@ -10,6 +10,7 @@ import java.util.*
 class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
 
     val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
+    val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.getThingsDone().asLiveData()
 
     private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0): ThingToDo{
         return ThingToDo(

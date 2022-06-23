@@ -21,4 +21,7 @@ interface ThingToDoDao {
 
     @Query("SELECT * FROM thing_to_do WhERE is_done = 0 ORDER BY time_stamp ASC")
     fun getThingsToDo() : Flow<List<ThingToDo>>
+
+    @Query("SELECT * FROM thing_to_do WhERE is_done = 1 ORDER BY time_stamp ASC")
+    fun getThingsDone() : Flow<List<ThingToDo>>
 }
