@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.thingstodo.R
 import com.example.thingstodo.storage.model.ThingToDo
 import com.google.android.material.card.MaterialCardView
+import java.util.*
+import kotlin.concurrent.schedule
 
 class ToDoAdapter(
     private val context: Context,
+    private val doneCallBack: (thingToDo : ThingToDo) -> Unit,
     private val navCallBack: (view : View, id : Int) -> Unit
 ) : ListAdapter<ThingToDo, ToDoAdapter.ToDoViewHolder>(diffCallBack) {
 
@@ -21,6 +25,7 @@ class ToDoAdapter(
         val toDoListItem : MaterialCardView = view.findViewById(R.id.to_do_list_item)
         val toDoName : TextView = view.findViewById(R.id.to_do_name)
         val toDoDate : TextView = view.findViewById(R.id.to_do_date)
+        val toDoDoneCheckBox : CheckBox = view.findViewById(R.id.to_do_done_checkbox)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ToDoViewHolder {
@@ -35,8 +40,24 @@ class ToDoAdapter(
         holder.toDoListItem.setOnClickListener{ view ->
             navCallBack(view, itemToDo.id)
         }
+        var timer = Timer("check_task", false)
+        holder.toDoDoneCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            timer.cancel()
+            timer.purge()
+            timer = Timer("check_task:"+itemToDo.id, false)
+
+            if(isChecked != itemToDo.done){
+
+                timer.schedule(400){
+                    doneCallBack(itemToDo)
+                }
+
+            }
+        }
         holder.toDoName.text = itemToDo.name
         holder.toDoDate.text = itemToDo.timeStamp.toString()
+        holder.toDoDoneCheckBox.isChecked = itemToDo.done
     }
 
     companion object {
