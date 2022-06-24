@@ -5,12 +5,10 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.thingstodo.MainActivity
 import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.application.ThingToDoApplication
@@ -58,7 +56,7 @@ class ToDoFragment : Fragment() {
     override fun onViewCreated(view : View, savedInstanceState: Bundle?){
         recyclerView = binding.toDoRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = ToDoAdapter(requireContext()) { view , id ->
+        val adapter = ToDoAdapter(requireContext(), ::updateThingToDo) { view , id ->
             val action = ToDoFragmentDirections.actionToDoFragmentToThingToDoFragment(id = id)
             view.findNavController().navigate(action)
         }
@@ -116,5 +114,9 @@ class ToDoFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun updateThingToDo(thingToDo: ThingToDo){
+        viewModel.updateNewThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp, !thingToDo.done)
     }
 }
