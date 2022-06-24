@@ -62,15 +62,16 @@ class ToDoFragment : Fragment() {
         }
         recyclerView.adapter = adapter
 
-        showDone.observe(this.viewLifecycleOwner){ newValue ->
+        var observableList = MutableLiveData<List<ThingToDo>>()
 
-            val observableList : LiveData<List<ThingToDo>>
+        showDone.observe(this.viewLifecycleOwner){ newValue ->
+            observableList.removeObservers(this.viewLifecycleOwner)
 
             if(newValue == true){
                 (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do_done)
-                observableList = viewModel.allThingsDone
+                observableList = viewModel.allThingsDone as MutableLiveData
             }else {
-                observableList = viewModel.allThingsToDo
+                observableList = viewModel.allThingsToDo as MutableLiveData
                 (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do)
             }
             observableList.observe(this.viewLifecycleOwner) { items ->
