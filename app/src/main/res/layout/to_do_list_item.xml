@@ -4,13 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
+    android:layout_marginHorizontal="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="20dp"
+    android:backgroundTint="?attr/cardBackgroundColor"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp">
+        android:layout_margin="20dp">
 
         <LinearLayout
             android:id="@+id/to_do_header"
@@ -19,8 +23,6 @@
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-
 
             <TextView
                 android:id="@+id/to_do_name"
@@ -31,6 +33,7 @@
                 android:textSize="25sp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textColor="?attr/titleTextColor"
                 android:layout_marginRight="8dp"
                 tools:text="To Do Title To Do Title To Do Title " />
 
@@ -41,17 +44,16 @@
                 android:translationX="-5dp"
                 android:layout_marginRight = "-20dp"/>
 
-
-
         </LinearLayout>
 
         <TextView
             android:id="@+id/to_do_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="?attr/dateTextColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/to_do_header"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             tools:text="2022 Jun, 23" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
