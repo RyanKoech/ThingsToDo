@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.core.content.ContextCompat
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -22,6 +25,11 @@ class SplashScreenActivity : AppCompatActivity() {
         }
 
         supportActionBar?.hide()
+
+        // window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        // val decorView = this.window.decorView
+        // decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+
         handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             val intent = Intent(this, MainActivity::class.java)
