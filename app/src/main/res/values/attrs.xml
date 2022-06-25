@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AppStyles">
+
+        <attr name="appBackground" format="color"/>
+        <attr name="cardBackgroundColor" format="color"/>
+        <attr name="titleTextColor" format="color"/>
+        <attr name="descriptionTextColor" format="color"/>
+        <attr name="fabIconColor" format="color"/>
+        <attr name="dateTextColor" format="color"/>
+        <attr name="iconColor" format="color"/>
+        <attr name="appBarIcon_Text" format="color"/>
+
+    </declare-styleable>
+</resources>
