@@ -18,4 +18,14 @@
     <color name="divider">#BDBDBD</color>
     <color name="light_blue_grey">#F0F5F8</color>
 
+    <color name="dark_primary">#AD8DE6</color>
+    <color name="dark_primary_dark">#512DA8</color>
+    <color name="dark_primary_light">#D1C4E9</color>
+    <color name="dark_accent">#FCC4B3</color>
+    <color name="dark_primary_text">#B5B5B5</color>
+    <color name="dark_secondary_text">#979797</color>
+    <color name="dark_grey">#111415</color>
+    <color name="dark_grey_purple">#1C1B1E</color>
+
+
 </resources>
