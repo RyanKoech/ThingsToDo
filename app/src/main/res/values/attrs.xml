@@ -7,6 +7,7 @@
         <attr name="cardBackgroundColor" format="color"/>
         <attr name="titleTextColor" format="color"/>
         <attr name="descriptionTextColor" format="color"/>
+        <attr name="fabBackgroundColor" format="color"/>
         <attr name="fabIconColor" format="color"/>
         <attr name="dateTextColor" format="color"/>
         <attr name="iconColor" format="color"/>

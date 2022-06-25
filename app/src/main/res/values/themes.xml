@@ -17,6 +17,7 @@
         <item name="titleTextColor">#2B2B2B</item>
         <item name="descriptionTextColor">#4A4A4A</item>
         <item name="dateTextColor">#505050</item>
+        <item name="fabBackgroundColor">@color/accent</item>
         <item name="fabIconColor">@color/white</item>
         <item name="iconColor">@color/accent</item>
         <item name="appBarIcon_Text">@color/white</item>
