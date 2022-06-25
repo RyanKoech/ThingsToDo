@@ -83,6 +83,8 @@
             android:src="@drawable/check_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="24dp"
             />
 
 
