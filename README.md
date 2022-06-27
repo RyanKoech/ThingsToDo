@@ -16,7 +16,7 @@
 
 # Things To Do
 
-> An application for users to generate realistic dummy data for their MySQL databases. See the deployed application [here](https://mybrosql.netlify.app/)
+> Personal To-Do app project aimed practice intermediate Kotlin concepts. Such as Room Database, Share Preferences, Notifications, Work Manager, Navigation, App Theming etc
 
 
 ## Built With
@@ -30,7 +30,7 @@
 <img src="screenshots/1_settings_screen.png" height="400" alt="Settings screen"/>
 
 ### Dark
-<img src="screenshots/2_splash_screen.png" height="400" alt="Splash screen"/> <img src="screenshots/2_home_screen.png" height="400" alt="Home screen"/> <img src="screenshots/2_things_to_do_screen.png" height="400" alt="Things to do screen"/>
+<img src="screenshots/2_splash_screen.png" height="400" alt="Splash screen"/> <img src="screenshots/2_things_to_do_screen.png" height="400" alt="Things to do screen"/> <img src="screenshots/2_things_to_do_screen.png" height="400" alt="Things to do screen"/>
 <img src="screenshots/2_add_to_do_screen.png" height="400" alt="Add to do screen"/> <img src="screenshots/2_thing_to_do_screen.png" height="400" alt="Thing to do screen"/> <img src="screenshots/2_edit_to_do_screen.png" height="400" alt="Edit to do screen"/>
 <img src="screenshots/2_settings_screen.png" height="400" alt="Settings screen"/>
 
