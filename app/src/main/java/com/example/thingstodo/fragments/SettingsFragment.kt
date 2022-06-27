@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.thingstodo.MainActivity
 import com.example.thingstodo.SharedPref
+import com.example.thingstodo.SplashScreenActivity
 import com.example.thingstodo.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment() {
@@ -26,7 +27,7 @@ class SettingsFragment : Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        sharedPref = (activity as MainActivity).sharedPref
+        sharedPref = SharedPref((activity as MainActivity).applicationContext)
 
         binding.toggleDarkmodeSwitch.apply {
             isChecked = sharedPref.loadNightModeState()!!
@@ -47,7 +48,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun restartApp() {
-        val intent = Intent ((activity as MainActivity).applicationContext, MainActivity::class.java)
+        val intent = Intent ((activity as MainActivity).applicationContext, SplashScreenActivity::class.java)
         startActivity(intent)
         (activity as MainActivity).finish()
     }

@@ -1,14 +1,9 @@
 package com.example.thingstodo
 
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
@@ -17,17 +12,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var sharedPref: SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //TWO WAYS OF CHANGING APP THEME
         // AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
         // setTheme(R.style.Theme_ThingsToDo_Dark)
         super.onCreate(savedInstanceState)
-
-        sharedPref = SharedPref(this)
-        if(sharedPref.loadNightModeState()!!){
-            System.out.println("Apply Dark Mode")
-        }else{
-            System.out.println("Apply Light Mode")
-        }
-
 
         setContentView(R.layout.activity_main)
 

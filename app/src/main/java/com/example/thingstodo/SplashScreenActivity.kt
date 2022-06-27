@@ -9,12 +9,24 @@ import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 
 class SplashScreenActivity : AppCompatActivity() {
 
     lateinit var handler: Handler
+    lateinit var sharedPref: SharedPref
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        sharedPref = SharedPref(this)
+        if(sharedPref.loadNightModeState()!!){
+            System.out.println("Apply Dark Mode")
+            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+        }else{
+            System.out.println("Apply Light Mode")
+            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
@@ -26,6 +38,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        //PROGRAMMATIC APPROACH FOR UPDATING STATUS BAR ICON COLORS
         // window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         // val decorView = this.window.decorView
         // decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
