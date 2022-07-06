@@ -7,6 +7,7 @@
     android:layout_marginHorizontal="8dp"
     app:cardElevation="4dp"
     app:cardCornerRadius="20dp"
+    android:longClickable="true"
     android:backgroundTint="?attr/cardBackgroundColor"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">

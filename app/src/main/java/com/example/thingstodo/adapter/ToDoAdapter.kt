@@ -18,6 +18,7 @@ import kotlin.concurrent.schedule
 class ToDoAdapter(
     private val context: Context,
     private val doneCallBack: (thingToDo : ThingToDo) -> Unit,
+    private val deleteCallBack: (thingToDo : ThingToDo) -> Unit,
     private val navCallBack: (view : View, id : Int) -> Unit
 ) : ListAdapter<ThingToDo, ToDoAdapter.ToDoViewHolder>(diffCallBack) {
 
@@ -40,6 +41,11 @@ class ToDoAdapter(
         holder.toDoListItem.setOnClickListener{ view ->
             navCallBack(view, itemToDo.id)
         }
+        holder.toDoListItem.setOnLongClickListener {  view ->
+            deleteCallBack(itemToDo)
+            return@setOnLongClickListener true
+        }
+
         var timer = Timer("check_task", false)
         holder.toDoDoneCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
 

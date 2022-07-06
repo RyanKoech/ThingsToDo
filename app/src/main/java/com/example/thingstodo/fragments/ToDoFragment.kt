@@ -56,7 +56,7 @@ class ToDoFragment : Fragment() {
     override fun onViewCreated(view : View, savedInstanceState: Bundle?){
         recyclerView = binding.toDoRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = ToDoAdapter(requireContext(), ::updateThingToDo) { view , id ->
+        val adapter = ToDoAdapter(requireContext(), ::updateThingToDo, ::deleteThingToDo) { view , id ->
             val action = ToDoFragmentDirections.actionToDoFragmentToThingToDoFragment(id = id)
             view.findNavController().navigate(action)
         }
@@ -119,5 +119,9 @@ class ToDoFragment : Fragment() {
 
     private fun updateThingToDo(thingToDo: ThingToDo){
         viewModel.updateNewThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp, !thingToDo.done)
+    }
+
+    private fun deleteThingToDo(thingToDo: ThingToDo){
+        viewModel.deleteThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp)
     }
 }
