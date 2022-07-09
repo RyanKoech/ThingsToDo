@@ -1,9 +1,8 @@
 package com.example.thingstodo.viewmodel
 
-import android.view.View
 import androidx.lifecycle.*
 import com.example.thingstodo.storage.dao.ThingToDoDao
-import com.example.thingstodo.storage.model.ThingToDo
+import com.example.thingstodo.model.ThingToDo
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -12,7 +11,7 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
     val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
     val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.getThingsDone().asLiveData()
 
-    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo{
+    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo {
         return ThingToDo(
             id = thingToDoId,
             name = thingToDoName,

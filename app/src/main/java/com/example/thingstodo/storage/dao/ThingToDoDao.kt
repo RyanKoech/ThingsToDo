@@ -1,7 +1,7 @@
 package com.example.thingstodo.storage.dao
 
 import androidx.room.*
-import com.example.thingstodo.storage.model.ThingToDo
+import com.example.thingstodo.model.ThingToDo
 import kotlinx.coroutines.flow.Flow
 
 @Dao

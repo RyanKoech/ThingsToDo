@@ -13,7 +13,7 @@ import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentToDoBinding
-import com.example.thingstodo.storage.model.ThingToDo
+import com.example.thingstodo.model.ThingToDo
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
 

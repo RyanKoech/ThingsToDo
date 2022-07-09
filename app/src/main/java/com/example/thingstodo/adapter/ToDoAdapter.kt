@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thingstodo.R
-import com.example.thingstodo.storage.model.ThingToDo
+import com.example.thingstodo.model.ThingToDo
 import com.google.android.material.card.MaterialCardView
 import java.util.*
 import kotlin.concurrent.schedule

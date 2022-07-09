@@ -1,4 +1,4 @@
-package com.example.thingstodo.storage.model
+package com.example.thingstodo.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

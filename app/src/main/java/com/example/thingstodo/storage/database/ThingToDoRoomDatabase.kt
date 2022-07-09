@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.thingstodo.storage.converters.Converters
 import com.example.thingstodo.storage.dao.ThingToDoDao
-import com.example.thingstodo.storage.model.ThingToDo
+import com.example.thingstodo.model.ThingToDo
 
 @Database(entities = [ThingToDo::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
