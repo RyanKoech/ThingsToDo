@@ -10,6 +10,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import com.example.thingstodo.sharedpref.SharedPref
 
 class SplashScreenActivity : AppCompatActivity() {
 

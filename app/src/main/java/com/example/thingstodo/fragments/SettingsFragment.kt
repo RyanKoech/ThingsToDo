@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.thingstodo.MainActivity
-import com.example.thingstodo.SharedPref
+import com.example.thingstodo.sharedpref.SharedPref
 import com.example.thingstodo.SplashScreenActivity
 import com.example.thingstodo.databinding.FragmentSettingsBinding
 

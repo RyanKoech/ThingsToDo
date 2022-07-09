@@ -1,4 +1,4 @@
-package com.example.thingstodo
+package com.example.thingstodo.sharedpref
 
 import android.content.Context
 import android.content.SharedPreferences
