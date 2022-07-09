@@ -1,15 +1,19 @@
 package com.example.thingstodo.viewmodel
 
+import android.app.AlarmManager
+import android.content.Context.ALARM_SERVICE
 import androidx.lifecycle.*
+import com.example.thingstodo.MainActivity
 import com.example.thingstodo.storage.dao.ThingToDoDao
 import com.example.thingstodo.model.ThingToDo
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
+class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao, private val activity: MainActivity) :ViewModel() {
 
     val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
     val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.getThingsDone().asLiveData()
+    private val alarmManager: AlarmManager = activity.getSystemService(ALARM_SERVICE) as AlarmManager
 
     private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo {
         return ThingToDo(
@@ -63,12 +67,12 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao) :ViewModel() {
     }
 }
 
-class ThingToDoViewModelFactor(private val thingToDoDao: ThingToDoDao) : ViewModelProvider.Factory {
+class ThingToDoViewModelFactor(private val thingToDoDao: ThingToDoDao, private val acitivity : MainActivity) : ViewModelProvider.Factory {
 
     override fun <T: ViewModel?> create (modelClass: Class<T>) : T{
         if(modelClass.isAssignableFrom(ThingToDoViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
-            return ThingToDoViewModel(thingToDoDao) as T
+            return ThingToDoViewModel(thingToDoDao, acitivity) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

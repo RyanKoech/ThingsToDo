@@ -2,12 +2,14 @@ package com.example.thingstodo.fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.example.thingstodo.MainActivity
 import com.example.thingstodo.R
 import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentEditToDoBinding
@@ -27,12 +29,21 @@ class EditToDoFragment : Fragment() {
     private val binding get() = _binding!!
     private var thingToDoId by Delegates.notNull<Int>()
     private val calender = Calendar.getInstance()
+    private lateinit var activity: MainActivity
+    private lateinit var viewModel : ThingToDoViewModel
 
-    private val viewModel : ThingToDoViewModel by activityViewModels{
-        ThingToDoViewModelFactor(
-            (activity?.application as ThingToDoApplication).database
-                .thingToDoDao()
-        )
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = getActivity() as MainActivity
+
+        val viewModel : ThingToDoViewModel by activityViewModels{
+            ThingToDoViewModelFactor(
+                (activity?.application as ThingToDoApplication).database
+                    .thingToDoDao() ,
+                activity
+            )
+        }
+        this.viewModel = viewModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?){

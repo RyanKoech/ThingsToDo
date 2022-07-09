@@ -1,5 +1,6 @@
 package com.example.thingstodo.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.thingstodo.MainActivity
 import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
 import com.example.thingstodo.application.ThingToDoApplication
@@ -24,13 +26,21 @@ class ToDoFragment : Fragment() {
     private val showDone : MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
     }
+    private lateinit var activity: MainActivity
+    private lateinit var viewModel : ThingToDoViewModel
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = getActivity() as MainActivity
 
-    private val viewModel : ThingToDoViewModel by activityViewModels{
-        ThingToDoViewModelFactor(
-            (activity?.application as ThingToDoApplication).database
-                .thingToDoDao()
-        )
+        val viewModel : ThingToDoViewModel by activityViewModels{
+            ThingToDoViewModelFactor(
+                (activity?.application as ThingToDoApplication).database
+                    .thingToDoDao() ,
+                activity
+            )
+        }
+        this.viewModel = viewModel
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
