@@ -86,14 +86,3 @@ class ThingToDoViewModel(private val thingToDoDao: ThingToDoDao, private val act
         deleteThingToDo(newThingToDo)
     }
 }
-
-class ThingToDoViewModelFactor(private val thingToDoDao: ThingToDoDao, private val acitivity : MainActivity) : ViewModelProvider.Factory {
-
-    override fun <T: ViewModel?> create (modelClass: Class<T>) : T{
-        if(modelClass.isAssignableFrom(ThingToDoViewModel::class.java)){
-            @Suppress("UNCHECKED_CAST")
-            return ThingToDoViewModel(thingToDoDao, acitivity) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel Class")
-    }
-}
