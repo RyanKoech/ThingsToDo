@@ -1,23 +1,19 @@
 package com.example.thingstodo.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.thingstodo.MainActivity
 import com.example.thingstodo.R
 import com.example.thingstodo.adapter.ToDoAdapter
-import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentToDoBinding
 import com.example.thingstodo.model.ThingToDo
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
-import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
 
 class ToDoFragment : Fragment() {
     private var _binding: FragmentToDoBinding? = null
@@ -26,22 +22,7 @@ class ToDoFragment : Fragment() {
     private val showDone : MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
     }
-    private lateinit var activity: MainActivity
     private lateinit var viewModel : ThingToDoViewModel
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = getActivity() as MainActivity
-
-        val viewModel : ThingToDoViewModel by activityViewModels{
-            ThingToDoViewModelFactor(
-                (activity?.application as ThingToDoApplication).database
-                    .thingToDoDao() ,
-                activity
-            )
-        }
-        this.viewModel = viewModel
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +36,9 @@ class ToDoFragment : Fragment() {
 
         _binding = FragmentToDoBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        viewModel = ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
+
         binding.toDoListFab.setOnClickListener{ view ->
             val action = R.id.action_toDoFragment_to_addToDo
             this.view?.findNavController()?.navigate(action)

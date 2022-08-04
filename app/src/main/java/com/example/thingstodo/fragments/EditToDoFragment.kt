@@ -2,20 +2,16 @@ package com.example.thingstodo.fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.thingstodo.MainActivity
 import com.example.thingstodo.R
-import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentEditToDoBinding
 import com.example.thingstodo.utilities.CustomUtility
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
-import com.example.thingstodo.viewmodel.ThingToDoViewModelFactor
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -29,22 +25,7 @@ class EditToDoFragment : Fragment() {
     private val binding get() = _binding!!
     private var thingToDoId by Delegates.notNull<Int>()
     private val calender = Calendar.getInstance()
-    private lateinit var activity: MainActivity
     private lateinit var viewModel : ThingToDoViewModel
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity = getActivity() as MainActivity
-
-        val viewModel : ThingToDoViewModel by activityViewModels{
-            ThingToDoViewModelFactor(
-                (activity?.application as ThingToDoApplication).database
-                    .thingToDoDao() ,
-                activity
-            )
-        }
-        this.viewModel = viewModel
-    }
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -59,6 +40,8 @@ class EditToDoFragment : Fragment() {
 
         _binding = FragmentEditToDoBinding.inflate(inflater, container,false)
         val view = binding.root
+
+        viewModel = ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
 
         viewModel.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner){ thingTodo ->
             calender.time = thingTodo.timeStamp

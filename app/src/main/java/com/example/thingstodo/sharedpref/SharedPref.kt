@@ -2,8 +2,10 @@ package com.example.thingstodo.sharedpref
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class SharedPref(context: Context) {
+class SharedPref @Inject constructor(@ApplicationContext context: Context) {
 
     internal lateinit var sharedPref: SharedPreferences
 

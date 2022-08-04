@@ -10,11 +10,15 @@ import com.example.thingstodo.MainActivity
 import com.example.thingstodo.sharedpref.SharedPref
 import com.example.thingstodo.SplashScreenActivity
 import com.example.thingstodo.databinding.FragmentSettingsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private var _binding : FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+    @Inject
     internal lateinit var sharedPref: SharedPref
 
 
@@ -26,8 +30,6 @@ class SettingsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup? , savedInstanceState: Bundle?) : View? {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        sharedPref = SharedPref((activity as MainActivity).applicationContext)
 
         binding.toggleDarkmodeSwitch.apply {
             isChecked = sharedPref.loadNightModeState()!!
