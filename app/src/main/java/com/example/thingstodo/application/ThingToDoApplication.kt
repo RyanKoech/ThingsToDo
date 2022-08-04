@@ -1,11 +1,7 @@
 package com.example.thingstodo.application
 
 import android.app.Application
-import com.example.thingstodo.storage.database.ThingToDoRoomDatabase
+import dagger.hilt.android.HiltAndroidApp
 
-class ThingToDoApplication : Application() {
-
-    val database : ThingToDoRoomDatabase by lazy {
-        ThingToDoRoomDatabase.getDatabase(this)
-    }
-}
+@HiltAndroidApp
+class ThingToDoApplication : Application() {}
