@@ -11,6 +11,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.thingstodo.storage.dao.ThingToDoDao
 import com.example.thingstodo.model.ThingToDo
+import com.example.thingstodo.other.Constants
 import com.example.thingstodo.receiver.ThingToDoReceiver
 import com.example.thingstodo.utilities.ContextProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +41,8 @@ class ThingToDoViewModel @Inject constructor(
 
     private fun insertThingToDo(thingToDo: ThingToDo){
         viewModelScope.launch {
-            thingToDoDao.insertThingToDo(thingToDo)
+            val thingToDoId = thingToDoDao.insertThingToDo(thingToDo)
+            scheduleReminder(thingToDoId.toInt(), thingToDo.name, thingToDo.timeStamp.time)
         }
     }
 
@@ -56,27 +58,37 @@ class ThingToDoViewModel @Inject constructor(
         }
     }
 
-    private fun scheduleReminder() {
+    private fun scheduleReminder(thingToDoId: Int, thingToDoName: String, time: Long) {
         val intent = Intent(contextProvider.getContext(), ThingToDoReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(contextProvider.getContext(), 0, intent, 0)
+        intent.putExtra(Constants.TAG_TASK_NAME, thingToDoName)
+        val pendingIntent = PendingIntent.getBroadcast(contextProvider.getContext(), thingToDoId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val calendar = Calendar.getInstance()
         println(calendar)
         alarmManager.set(
             AlarmManager.RTC,
-            calendar.timeInMillis + 60,
+            // calendar.timeInMillis - Constants.MILLISECONDS_30MIN,
+            time - Constants.MILLISECONDS_30MIN,
             pendingIntent
         )
 
         Toast.makeText(contextProvider.getContext(), "Toast Scheduled successfully", Toast.LENGTH_SHORT).show()
     }
 
+    private fun cancelReminder(thingToDoId: Int) {
+        val intent = Intent(contextProvider.getContext(), ThingToDoReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(contextProvider.getContext(), thingToDoId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        alarmManager.cancel(
+            pendingIntent
+        )
+
+        Toast.makeText(contextProvider.getContext(), "Scheduled deleted successfully", Toast.LENGTH_SHORT).show()
+    }
+
     fun addNewThingToDo(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate)
         insertThingToDo(newThingToDo)
-        scheduleReminder()
-
     }
 
     fun getThingToDo(id :Int): LiveData<ThingToDo>{
@@ -87,11 +99,14 @@ class ThingToDoViewModel @Inject constructor(
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId, isDone)
         updateThingToDo(newThingToDo)
+        cancelReminder(thingToDoId)
+        scheduleReminder(thingToDoId, thingToDoName, thingToDoDate.time)
     }
 
     fun deleteThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId)
         deleteThingToDo(newThingToDo)
+        cancelReminder(thingToDoId)
     }
 }
