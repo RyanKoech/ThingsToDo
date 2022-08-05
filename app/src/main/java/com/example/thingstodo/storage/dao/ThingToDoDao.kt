@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ThingToDoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertThingToDo(thingToDo: ThingToDo)
+    suspend fun insertThingToDo(thingToDo: ThingToDo) : Long
 
     @Update
     suspend fun updateThingToDo(thingToDo: ThingToDo)
