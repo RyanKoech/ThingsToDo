@@ -16,7 +16,7 @@
 
 # Things To Do
 
-> Personal To-Do app project aimed practice intermediate Kotlin concepts. Such as Room Database, Share Preferences, Notifications, Work Manager, Navigation, App Theming etc
+> Personal To-Do app project aimed practice intermediate Kotlin concepts. Such as Room Database, Shared Preferences, Notifications, Work Manager, Dagger-Hilt, Alarm Manager, Navigation, App Theming etc
 
 
 ## Built With
