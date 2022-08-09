@@ -61,6 +61,7 @@ class ThingToDoViewModel @Inject constructor(
     private fun scheduleReminder(thingToDoId: Int, thingToDoName: String, time: Long) {
         val intent = Intent(contextProvider.getContext(), ThingToDoReceiver::class.java)
         intent.putExtra(Constants.TAG_TASK_NAME, thingToDoName)
+        intent.putExtra(Constants.TAG_TASK_ID, thingToDoId)
         val pendingIntent = PendingIntent.getBroadcast(contextProvider.getContext(), thingToDoId, intent, PendingIntent.FLAG_CANCEL_CURRENT)
 
         val calendar = Calendar.getInstance()

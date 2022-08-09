@@ -20,6 +20,7 @@ class ThingToDoFragment : Fragment() {
 
     companion object {
         var ID = "id"
+        val TAG = "ThingToDoFragment"
     }
 
     private var _binding : FragmentThingToDoBinding? = null
