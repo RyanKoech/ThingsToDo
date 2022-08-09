@@ -21,8 +21,8 @@ object CustomUtility {
     }
 
     fun getTimePickerListener(input : TextInputEditText, calender: Calendar) : TimePickerDialog.OnTimeSetListener {
-        return TimePickerDialog.OnTimeSetListener { view, hour, minute ->
-            calender.set(Calendar.HOUR, hour)
+        return TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            calender.set(Calendar.HOUR_OF_DAY, hourOfDay)
             calender.set(Calendar.MINUTE, minute)
             calender.set(Calendar.SECOND, 0)
             input.setText(
@@ -36,8 +36,6 @@ object CustomUtility {
             calender.set(Calendar.YEAR, year)
             calender.set(Calendar.MONTH, month)
             calender.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            calender.set(Calendar.HOUR, 13)
-            calender.set(Calendar.MINUTE, 24)
             input.setText(
                 CustomUtility.getFormattedDateString(calender.time)
             )
