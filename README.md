@@ -23,6 +23,20 @@
 
 - Kotlin
 
+### Things To Do
+Generally the creators purpose was to develope a ToDo List Application employing various android concepts during his learning expedition; making this a long term project.
+
+It is therefore bound to grow in complexity with improves to performance, functionality and others, with time. 
+
+> Below are some of the major targets the creator has been able to come up with time. And the list keeps on growing!
+- [X] Implement theme switching with shared preference
+- [X] Employ Dependency Injection
+- [X] Show notifcations 30 minutes before due time
+- [ ] Dynamically display due and overdue tasks
+- [ ] Sync notifications with done and undone tasks
+- [ ] Enable undo delete using snackbar
+- [ ] Better display time
+
 ## Screenshots
 ### Light
 <img src="screenshots/1_splash_screen.png" height="400" alt="Splash screen"/> <img src="screenshots/1_things_to_do_screen.png" height="400" alt="Things to do screen"/> <img src="screenshots/1_things_done_screen.png" height="400" alt="Things done screen"/>
@@ -46,6 +60,7 @@ To get a local copy up and running follow these simple example steps.
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
+You can pick a thing to do from the list provided above and work on it.
 
 Feel free to check the [issues page](../../issues/) or [discussions page](../../discussions).
 
