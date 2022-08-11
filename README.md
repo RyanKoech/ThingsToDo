@@ -36,6 +36,7 @@ It is therefore bound to grow in complexity with improves to performance, functi
 - [ ] Sync notifications with done and undone tasks
 - [ ] Enable undo delete using snackbar
 - [ ] Better display time
+- [ ] Migrate to Android 12 splash screen API
 
 ## Screenshots
 ### Light
