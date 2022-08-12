@@ -25,4 +25,11 @@
         <item name="appBarIcon_Text">@color/black</item>
 
     </style>
+
+    <style name="Theme.ThingsToDo.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.ThingsToDo</item>
+    </style>
+
 </resources>
