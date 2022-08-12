@@ -50,7 +50,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun restartApp() {
-        val intent = Intent ((activity as MainActivity).applicationContext, SplashScreenActivity::class.java)
+        val intent = Intent ((activity as MainActivity).applicationContext, MainActivity::class.java)
         startActivity(intent)
         (activity as MainActivity).finish()
     }
