@@ -32,11 +32,11 @@ It is therefore bound to grow in complexity with improves to performance, functi
 - [X] Implement theme switching with shared preference
 - [X] Employ Dependency Injection
 - [X] Show notifcations 30 minutes before due time
+- [X] Migrate to Android 12 splash screen API. *Yet to know how to sync theme with shared pref
 - [ ] Dynamically display due and overdue tasks
 - [ ] Sync notifications with done and undone tasks
 - [ ] Enable undo delete using snackbar
 - [ ] Better display time
-- [ ] Migrate to Android 12 splash screen API
 
 ## Screenshots
 ### Light
