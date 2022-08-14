@@ -38,6 +38,7 @@ It is therefore bound to grow in complexity with improves to performance, functi
 - [ ] Enable undo delete using snackbar
 - [ ] Better display time
 - [ ] Migrate to Jetpack Compose
+- [ ] Properly Adopt Material Theming
 
 ## Screenshots
 ### Light
