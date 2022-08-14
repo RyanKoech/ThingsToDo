@@ -39,6 +39,7 @@ It is therefore bound to grow in complexity with improves to performance, functi
 - [ ] Better display time
 - [ ] Migrate to Jetpack Compose
 - [ ] Properly Adopt Material Theming
+- [ ] Write Unit and Instrumented Tests
 
 ## Screenshots
 ### Light
