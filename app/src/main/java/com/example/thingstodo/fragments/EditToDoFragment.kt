@@ -57,7 +57,7 @@ class EditToDoFragment : Fragment() {
             isFocusable = false
             setOnClickListener{ view ->
                 DatePickerDialog(
-                    requireContext(), datePicker, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(
+                    requireContext(), R.style.CalendarDatePickerDialogStyle, datePicker, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(
                         Calendar.DAY_OF_MONTH)
                 ).show()
             }
@@ -68,7 +68,7 @@ class EditToDoFragment : Fragment() {
             isFocusable = false
             setOnClickListener{ view ->
                 TimePickerDialog(
-                    requireContext(), timePicker, calender.get(Calendar.HOUR_OF_DAY), calender.get(
+                    requireContext(), R.style.CalendarTimePickerDialogStyle, timePicker, calender.get(Calendar.HOUR_OF_DAY), calender.get(
                         Calendar.MINUTE), false
                 ).show()
             }

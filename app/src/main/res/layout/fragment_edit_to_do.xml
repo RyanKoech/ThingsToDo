@@ -24,6 +24,7 @@
                 android:id="@+id/title_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/title_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -40,6 +41,7 @@
                 android:id="@+id/description_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/description_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,6 +58,7 @@
                 android:id="@+id/date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/date_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +75,7 @@
                 android:id="@+id/time_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/time_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +84,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Done? "
-            android:textColor="?attr/titleTextColor"
+            android:textColor="?attr/colorOnBackground"
+            android:alpha="0.8"
             app:layout_constraintTop_toBottomOf="@id/time_input_label"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="8dp"/>
@@ -91,8 +96,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            app:tint="?attr/fabIconColor"
-            android:backgroundTint="?attr/fabBackgroundColor"
             app:borderWidth="0dp"
             app:elevation="6dp"
             android:src="@drawable/check_icon"

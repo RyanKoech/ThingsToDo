@@ -23,7 +23,9 @@
                 android:id="@+id/title_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/title_text"/>
+                android:textColor="?attr/colorOnSurface"
+                android:hint="@string/title_text"
+                tools:text="Entered Title"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -39,6 +41,7 @@
                 android:id="@+id/description_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/description_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,6 +58,7 @@
                 android:id="@+id/date_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/date_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -71,6 +75,7 @@
                 android:id="@+id/time_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:hint="@string/time_text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,8 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            app:tint="?attr/fabIconColor"
-            android:backgroundTint="?attr/fabBackgroundColor"
             app:borderWidth="0dp"
             app:elevation="6dp"
             android:src="@drawable/check_icon"

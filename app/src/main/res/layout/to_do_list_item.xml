@@ -8,7 +8,7 @@
     app:cardElevation="4dp"
     app:cardCornerRadius="20dp"
     android:longClickable="true"
-    android:backgroundTint="?attr/cardBackgroundColor"
+    android:backgroundTint="?attr/colorSurface"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -34,7 +34,7 @@
                 android:textSize="25sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="?attr/titleTextColor"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginRight="8dp"
                 tools:text="To Do Title To Do Title To Do Title " />
 
@@ -51,7 +51,7 @@
             android:id="@+id/to_do_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?attr/dateTextColor"
+            android:textColor="?attr/colorOnSurface"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/to_do_header"
             android:layout_marginTop="8dp"
