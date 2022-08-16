@@ -3,38 +3,42 @@
     <style name="Theme.ThingsToDo" parent="Theme.MaterialComponents.Light">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/primary_text</item>
+        <item name="colorPrimary">@color/violet_700</item>
+        <item name="colorOnPrimary">@color/black_50</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/accent</item>
-        <item name="colorSecondaryVariant">@color/accent</item>
-        <item name="colorOnSecondary">@color/secondary_text</item>
+        <item name="colorSecondary">@color/orange_500</item>
+        <item name="colorOnSecondary">@color/black_50</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimarySurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">?attr/isLightTheme</item>
         <!-- Customize your theme here. -->
-        <item name="appBackground">@color/light_blue_grey</item>
-        <item name="cardBackgroundColor">@color/white</item>
-        <item name="titleTextColor">#2B2B2B</item>
-        <item name="descriptionTextColor">#4A4A4A</item>
-        <item name="dateTextColor">#505050</item>
-        <item name="fabBackgroundColor">@color/accent</item>
-        <item name="fabIconColor">@color/white</item>
-        <item name="iconColor">@color/accent</item>
-        <item name="appBarIcon_Text">@color/white</item>
-        <item name="android:actionBarStyle">@color/accent</item>
+        <item name="android:colorBackground">@color/black_100</item>
+        <item name="colorOnBackground">@color/black_800</item>
+        <item name="colorSurface">@color/black_50</item>
+        <item name="colorOnSurface">@color/black_800</item>
         <item name="actionBarTheme">@style/AppTheme.AppBarOverlay</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
     <style name="Theme.ThingsToDo.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenBackground">@color/black_50</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
         <item name="postSplashScreenTheme">@style/Theme.ThingsToDo</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="iconTint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="CalendarDatePickerDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="android:textColorPrimary">?attr/colorOnBackground</item>
+        <item name="android:textColorSecondary">?attr/colorSecondary</item>
+    </style>
+
+    <style name="CalendarTimePickerDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="android:textColorPrimary">@color/black_500</item>
+        <item name="android:textColorSecondary">@color/black_400</item>
+        <item name="android:textColorHint">?attr/colorOnBackground</item>
+        <item name="android:textColor">@color/black_400</item>
+    </style>
 </resources>

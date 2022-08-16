@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.example.thingstodo.R
 import com.example.thingstodo.databinding.FragmentAddToDoBinding
 import com.example.thingstodo.utilities.CustomUtility
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
@@ -40,7 +41,7 @@ class AddToDoFragment : Fragment() {
             isFocusable = false
             setOnClickListener{ view ->
                 DatePickerDialog(
-                    requireContext(), datePicker, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)
+                    requireContext(), R.style.CalendarDatePickerDialogStyle, datePicker, calender.get(Calendar.YEAR), calender.get(Calendar.MONTH), calender.get(Calendar.DAY_OF_MONTH)
                 ).show()
             }
         }
@@ -50,7 +51,7 @@ class AddToDoFragment : Fragment() {
             isFocusable = false
             setOnClickListener{ view ->
                 TimePickerDialog(
-                    requireContext(), timePicker, calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), false
+                    requireContext(), R.style.CalendarTimePickerDialogStyle, timePicker, calender.get(Calendar.HOUR_OF_DAY), calender.get(Calendar.MINUTE), false
                 ).show()
             }
         }
