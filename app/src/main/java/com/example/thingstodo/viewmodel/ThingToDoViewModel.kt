@@ -73,7 +73,7 @@ class ThingToDoViewModel @Inject constructor(
             pendingIntent
         )
 
-        Toast.makeText(contextProvider.getContext(), "Toast Scheduled successfully", Toast.LENGTH_SHORT).show()
+        // Toast.makeText(contextProvider.getContext(), "Toast Scheduled successfully", Toast.LENGTH_SHORT).show()
     }
 
     private fun cancelReminder(thingToDoId: Int) {
@@ -83,7 +83,7 @@ class ThingToDoViewModel @Inject constructor(
             pendingIntent
         )
 
-        Toast.makeText(contextProvider.getContext(), "Scheduled deleted successfully", Toast.LENGTH_SHORT).show()
+        // Toast.makeText(contextProvider.getContext(), "Scheduled deleted successfully", Toast.LENGTH_SHORT).show()
     }
 
     fun addNewThingToDo(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
