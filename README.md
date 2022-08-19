@@ -39,7 +39,7 @@ It is therefore bound to grow in complexity with improves to performance, functi
 - [ ] Enable undo delete using snackbar
 - [ ] Better display time
 - [ ] Migrate to Jetpack Compose
-- [ ] Write Unit and Instrumented Tests
+- [ ] Write Unit and Instrumented Tests (On going... 🚧)
 
 ## Screenshots
 ### Light
