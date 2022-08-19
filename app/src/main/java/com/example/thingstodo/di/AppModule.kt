@@ -3,6 +3,9 @@ package com.example.thingstodo.di
 import android.content.Context
 import androidx.room.Room
 import com.example.thingstodo.other.Constants.DATABASE_NAME
+import com.example.thingstodo.repository.DefaultThingToDoRepository
+import com.example.thingstodo.repository.ThingToDoRepository
+import com.example.thingstodo.storage.dao.ThingToDoDao
 import com.example.thingstodo.storage.database.ThingToDoRoomDatabase
 import com.example.thingstodo.utilities.ContextProvider
 import dagger.Module
@@ -30,7 +33,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideContextProvider(@ApplicationContext context: Context) : ContextProvider {
+    fun provideContextProvider(@ApplicationContext context: Context): ContextProvider {
         return object : ContextProvider {
             override fun getContext(): Context {
                 return context
@@ -38,4 +41,11 @@ object AppModule {
 
         }
     }
+
+    @Provides
+    @Singleton
+    fun provideDefaultThingToDoRepository(
+        thingToDoDao: ThingToDoDao
+    ) = DefaultThingToDoRepository(thingToDoDao) as ThingToDoRepository
+
 }
