@@ -4,7 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -13,6 +12,7 @@ import com.example.thingstodo.storage.dao.ThingToDoDao
 import com.example.thingstodo.model.ThingToDo
 import com.example.thingstodo.other.Constants
 import com.example.thingstodo.receiver.ThingToDoReceiver
+import com.example.thingstodo.repository.ThingToDoRepository
 import com.example.thingstodo.utilities.ContextProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,12 +21,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ThingToDoViewModel @Inject constructor(
-    private val thingToDoDao: ThingToDoDao,
+    private val thingToDoDaoRepository: ThingToDoRepository,
     private val contextProvider: ContextProvider
     ) : ViewModel() {
 
-    val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
-    val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.getThingsDone().asLiveData()
+    val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDaoRepository.observeThingsToDo().asLiveData()
+    val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDaoRepository.observeThingsDone().asLiveData()
     private val alarmManager: AlarmManager =  contextProvider.getContext().getSystemService(ALARM_SERVICE) as AlarmManager
 
     private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo {
@@ -41,20 +41,20 @@ class ThingToDoViewModel @Inject constructor(
 
     private fun insertThingToDo(thingToDo: ThingToDo){
         viewModelScope.launch {
-            val thingToDoId = thingToDoDao.insertThingToDo(thingToDo)
+            val thingToDoId = thingToDoDaoRepository.insertThingToDo(thingToDo)
             scheduleReminder(thingToDoId.toInt(), thingToDo.name, thingToDo.timeStamp.time)
         }
     }
 
     private fun updateThingToDo(thingToDo: ThingToDo){
         viewModelScope.launch{
-            thingToDoDao.updateThingToDo(thingToDo)
+            thingToDoDaoRepository.updateThingToDo(thingToDo)
         }
     }
 
     private fun deleteThingToDo(thingToDo: ThingToDo) {
         viewModelScope.launch {
-            thingToDoDao.deleteThingToDo(thingToDo)
+            thingToDoDaoRepository.deleteThingToDo(thingToDo)
         }
     }
 
@@ -93,7 +93,7 @@ class ThingToDoViewModel @Inject constructor(
     }
 
     fun getThingToDo(id :Int): LiveData<ThingToDo>{
-        return thingToDoDao.getThingToDo(id).asLiveData()
+        return thingToDoDaoRepository.observeThingToDo(id).asLiveData()
     }
 
     fun updateNewThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, isDone: Boolean){
