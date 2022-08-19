@@ -4,7 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -25,8 +24,8 @@ class ThingToDoViewModel @Inject constructor(
     private val contextProvider: ContextProvider
     ) : ViewModel() {
 
-    val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.getThingsToDo().asLiveData()
-    val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.getThingsDone().asLiveData()
+    val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDao.observeThingsToDo().asLiveData()
+    val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDao.observeThingsDone().asLiveData()
     private val alarmManager: AlarmManager =  contextProvider.getContext().getSystemService(ALARM_SERVICE) as AlarmManager
 
     private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo {
@@ -93,7 +92,7 @@ class ThingToDoViewModel @Inject constructor(
     }
 
     fun getThingToDo(id :Int): LiveData<ThingToDo>{
-        return thingToDoDao.getThingToDo(id).asLiveData()
+        return thingToDoDao.observeThingToDo(id).asLiveData()
     }
 
     fun updateNewThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, isDone: Boolean){

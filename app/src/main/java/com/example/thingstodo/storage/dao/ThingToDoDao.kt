@@ -17,11 +17,11 @@ interface ThingToDoDao {
     suspend fun deleteThingToDo(thingToDo: ThingToDo)
 
     @Query("SELECT * FROM thing_to_do WHERE id = :id")
-    fun getThingToDo(id: Int) : Flow<ThingToDo>
+    fun observeThingToDo(id: Int) : Flow<ThingToDo>
 
     @Query("SELECT * FROM thing_to_do WhERE is_done = 0 ORDER BY time_stamp ASC")
-    fun getThingsToDo() : Flow<List<ThingToDo>>
+    fun observeThingsToDo() : Flow<List<ThingToDo>>
 
     @Query("SELECT * FROM thing_to_do WhERE is_done = 1 ORDER BY time_stamp ASC")
-    fun getThingsDone() : Flow<List<ThingToDo>>
+    fun observeThingsDone() : Flow<List<ThingToDo>>
 }
