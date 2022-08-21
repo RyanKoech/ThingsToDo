@@ -1,16 +1,11 @@
 package com.example.thingstodo.viewmodel
 
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.thingstodo.MainCoroutineRule
 import com.example.thingstodo.getOrAwaitValueTest
-import com.example.thingstodo.other.Constants
 import com.example.thingstodo.other.Status
-import com.example.thingstodo.receiver.ThingToDoReceiver
 import com.example.thingstodo.repository.FakeThingToDoRepository
 import com.example.thingstodo.utilities.AndroidTestUtilities
 import com.example.thingstodo.utilities.ContextProvider
