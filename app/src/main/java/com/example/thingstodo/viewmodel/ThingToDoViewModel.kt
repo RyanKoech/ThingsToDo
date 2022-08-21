@@ -4,18 +4,17 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context.ALARM_SERVICE
 import android.content.Intent
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.thingstodo.storage.dao.ThingToDoDao
+import androidx.lifecycle.*
 import com.example.thingstodo.model.ThingToDo
 import com.example.thingstodo.other.Constants
+import com.example.thingstodo.other.Event
+import com.example.thingstodo.other.Resource
 import com.example.thingstodo.receiver.ThingToDoReceiver
 import com.example.thingstodo.repository.ThingToDoRepository
 import com.example.thingstodo.utilities.ContextProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.TestOnly
 import java.util.*
 import javax.inject.Inject
 
@@ -27,9 +26,18 @@ class ThingToDoViewModel @Inject constructor(
 
     val allThingsToDo : LiveData<List<ThingToDo>> = thingToDoDaoRepository.observeThingsToDo().asLiveData()
     val allThingsDone : LiveData<List<ThingToDo>> = thingToDoDaoRepository.observeThingsDone().asLiveData()
+    private val _getNewThingToDoStatus = MutableLiveData<Event<Resource<ThingToDo>>>()
+    val getNewThingToDoStatus : LiveData<Event<Resource<ThingToDo>>> get() = _getNewThingToDoStatus
     private val alarmManager: AlarmManager =  contextProvider.getContext().getSystemService(ALARM_SERVICE) as AlarmManager
 
-    private fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo {
+    @TestOnly
+    internal fun getNewThingToDoEntry(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, thingToDoId:Int = 0, isDone : Boolean = false): ThingToDo? {
+
+        if(thingToDoName.isBlank() || thingToDoDescription.isBlank()){
+            _getNewThingToDoStatus.postValue(Event(Resource.error("The string values should not be blank", null)))
+            return null
+        }
+
         return ThingToDo(
             id = thingToDoId,
             name = thingToDoName,
@@ -89,7 +97,9 @@ class ThingToDoViewModel @Inject constructor(
     fun addNewThingToDo(thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate)
-        insertThingToDo(newThingToDo)
+        newThingToDo?.let {
+            insertThingToDo(it)
+        }
     }
 
     fun getThingToDo(id :Int): LiveData<ThingToDo>{
@@ -99,15 +109,19 @@ class ThingToDoViewModel @Inject constructor(
     fun updateNewThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date, isDone: Boolean){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId, isDone)
-        updateThingToDo(newThingToDo)
-        cancelReminder(thingToDoId)
-        scheduleReminder(thingToDoId, thingToDoName, thingToDoDate.time)
+        newThingToDo?.let {
+            updateThingToDo(it)
+            cancelReminder(thingToDoId)
+            scheduleReminder(thingToDoId, thingToDoName, thingToDoDate.time)
+        }
     }
 
     fun deleteThingToDo(thingToDoId:Int, thingToDoName : String, thingToDoDescription: String, thingToDoDate: Date){
 
         val newThingToDo = getNewThingToDoEntry(thingToDoName, thingToDoDescription, thingToDoDate, thingToDoId)
-        deleteThingToDo(newThingToDo)
-        cancelReminder(thingToDoId)
+        newThingToDo?.let{
+            deleteThingToDo(it)
+            cancelReminder(thingToDoId)
+        }
     }
 }
