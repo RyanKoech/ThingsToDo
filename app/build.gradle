@@ -74,7 +74,6 @@ dependencies {
 
     //INSTRUMENTED TESTING
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Kotlin Coroutines Test
     androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
@@ -84,4 +83,17 @@ dependencies {
 
     //Truth
     androidTestImplementation "com.google.truth:truth:1.1.3"
+
+    //Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation('androidx.test.espresso:espresso-contrib:3.4.0') {
+        exclude group: 'org.checkerframework', module : 'checker'
+    }
+
+    //Mockito
+    androidTestImplementation 'org.mockito:mockito-android:3.2.4'
+
+    //Fragment Testing
+    debugImplementation "androidx.fragment:fragment-testing:1.5.2"
+
 }
