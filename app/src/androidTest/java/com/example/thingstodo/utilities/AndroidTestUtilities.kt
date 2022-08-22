@@ -9,7 +9,7 @@ object AndroidTestUtilities {
     val validThingToDoDescription = "Thing To Do Description"
     val validThingToDoDate : Date = Calendar.getInstance().time
     fun getValidThingToDo(
-        id : Int,
+        id : Int = 0,
         name: String = validThingToDoName,
         description : String  = validThingToDoDescription,
         date: Date = validThingToDoDate,
