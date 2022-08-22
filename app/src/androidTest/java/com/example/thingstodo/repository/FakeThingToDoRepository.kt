@@ -52,8 +52,8 @@ class FakeThingToDoRepository : ThingToDoRepository {
     }
 
     private fun refreshData () {
-        observableThingsToDo.postValue(thingsToDo.filter { it.done })
-        observableThingsDone.postValue(thingsToDo.filter { !it.done })
+        observableThingsToDo.postValue(thingsToDo.filter { !it.done })
+        observableThingsDone.postValue(thingsToDo.filter { it.done })
 
     }
 
