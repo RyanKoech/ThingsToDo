@@ -96,4 +96,6 @@ dependencies {
     //Fragment Testing
     debugImplementation "androidx.fragment:fragment-testing:1.5.2"
 
+    //TestNavHostController
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
 }
