@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -16,11 +17,15 @@ import com.example.thingstodo.utilities.CustomUtility
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import java.util.*
 
-class AddToDoFragment : Fragment() {
+class AddToDoFragment(
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal var viewModel: ThingToDoViewModel? = null
+) : Fragment() {
     private var _binding : FragmentAddToDoBinding? = null
-    private val binding get() = _binding!!
-    private val calender = Calendar.getInstance()
-    private lateinit var viewModel : ThingToDoViewModel
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal val binding get() = _binding!!
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal val calender = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -35,7 +40,7 @@ class AddToDoFragment : Fragment() {
 
         _binding = FragmentAddToDoBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
+        viewModel = viewModel ?: ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
         binding.dateInput.apply {
             val  datePicker = CustomUtility.getDatePickerListener(this, calender)
             isFocusable = false
@@ -113,6 +118,6 @@ class AddToDoFragment : Fragment() {
     }
 
     private fun addNewItem() {
-        viewModel.addNewThingToDo(binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
+        viewModel?.addNewThingToDo(binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
     }
 }
