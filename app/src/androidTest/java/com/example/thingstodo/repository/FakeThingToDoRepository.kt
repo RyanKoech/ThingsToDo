@@ -5,17 +5,25 @@ import androidx.lifecycle.asFlow
 import com.example.thingstodo.model.ThingToDo
 import kotlinx.coroutines.flow.Flow
 
-class FakeThingToDoRepository : ThingToDoRepository {
+class FakeThingToDoRepository(
+    initialThingsToDo : List<ThingToDo> = listOf()
+) : ThingToDoRepository {
 
-    private var thingsToDo = mutableListOf<ThingToDo>()
+    private var thingsToDo : MutableList<ThingToDo> = mutableListOf<ThingToDo>()
 
-    private var nextThingToDoId = 0
+    private var nextThingToDoId = initialThingsToDo.size
 
     private val observableThingToDo = MutableLiveData<ThingToDo>()
 
     private val observableThingsToDo = MutableLiveData<List<ThingToDo>>(thingsToDo.filter { it.done })
 
     private val observableThingsDone = MutableLiveData<List<ThingToDo>>(thingsToDo.filter { !it.done })
+
+    init {
+        initialThingsToDo.forEach{ initialThingToDo ->
+            thingsToDo.add(initialThingToDo)
+        }
+    }
 
     override suspend fun insertThingToDo(thingToDo: ThingToDo): Long {
         val nextThingToDo = getNextThingToDo(thingToDo)
