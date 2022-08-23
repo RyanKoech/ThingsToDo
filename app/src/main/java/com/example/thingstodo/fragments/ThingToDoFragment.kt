@@ -1,22 +1,19 @@
 package com.example.thingstodo.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.example.thingstodo.MainActivity
-import com.example.thingstodo.R
-import com.example.thingstodo.application.ThingToDoApplication
 import com.example.thingstodo.databinding.FragmentThingToDoBinding
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import kotlin.properties.Delegates
 
-class ThingToDoFragment : Fragment() {
+class ThingToDoFragment(
+    private var viewModel : ThingToDoViewModel? = null
+) : Fragment() {
 
     companion object {
         var ID = "id"
@@ -26,7 +23,6 @@ class ThingToDoFragment : Fragment() {
     private var _binding : FragmentThingToDoBinding? = null
     private val binding get() = _binding!!
     private var thingToDoId by Delegates.notNull<Int>()
-    private lateinit var viewModel : ThingToDoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +37,8 @@ class ThingToDoFragment : Fragment() {
 
         _binding = FragmentThingToDoBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
-        viewModel.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner) { thingToDo ->
+        viewModel = viewModel ?: ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
+        viewModel!!.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner) { thingToDo ->
             thingToDo.let{
                 binding.titleTextView.text = thingToDo.name
                 binding.descriptionTextView.text = thingToDo.description
