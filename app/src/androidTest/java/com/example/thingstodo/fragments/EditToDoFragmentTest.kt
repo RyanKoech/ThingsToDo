@@ -2,6 +2,7 @@ package com.example.thingstodo.fragments
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.core.os.bundleOf
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
@@ -28,18 +29,14 @@ class EditToDoFragmentTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var androidTestFragmentFactory: AndroidTestFragmentFactory
+    private lateinit var scenario: FragmentScenario<EditToDoFragment>
 
     @Before
     fun setup() {
-        androidTestFragmentFactory = AndroidTestFragmentFactory()
-    }
-
-    @Test
-    fun submitEmptyTitleTextField_setErrorOnTextField() {
+        val androidTestFragmentFactory = AndroidTestFragmentFactory()
         val navController = Mockito.mock(NavController::class.java)
 
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
+        scenario = launchFragmentInContainer<EditToDoFragment>(
             factory = androidTestFragmentFactory,
             themeResId = R.style.Theme_ThingsToDo,
             initialState = Lifecycle.State.CREATED,
@@ -51,6 +48,12 @@ class EditToDoFragmentTest {
         scenario.onFragment{
             Navigation.setViewNavController(it.requireView(), navController)
         }
+
+
+    }
+
+    @Test
+    fun submitEmptyTitleTextField_setErrorOnTextField() {
 
         Espresso.onView(ViewMatchers.withId(R.id.title_input)).perform(
             ViewActions.replaceText("")
@@ -67,20 +70,6 @@ class EditToDoFragmentTest {
 
     @Test
     fun submitEmptyDescriptionTextField_setErrorOnTextField() {
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
-        scenario.onFragment{
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
 
         Espresso.onView(ViewMatchers.withId(R.id.description_input)).perform(
             ViewActions.replaceText("")
@@ -97,20 +86,6 @@ class EditToDoFragmentTest {
 
     @Test
     fun submitEmptyDateTextField_setErrorOnTextField() {
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
-        scenario.onFragment{
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
 
         Espresso.onView(ViewMatchers.withId(R.id.date_input)).perform(
             ViewActions.replaceText("")
@@ -127,20 +102,6 @@ class EditToDoFragmentTest {
 
     @Test
     fun submitEmptyTimeTextField_setErrorOnTextField() {
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
-        scenario.onFragment{
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
 
         Espresso.onView(ViewMatchers.withId(R.id.time_input)).perform(
             ViewActions.replaceText("")
@@ -159,19 +120,8 @@ class EditToDoFragmentTest {
     fun submitEmptyTitleTextField_noDbUpdate() {
 
         var oldThingToDo : ThingToDo? = null
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
             oldThingToDo = it.viewModel!!.getThingToDo(0).getOrAwaitValueTest()
         }
 
@@ -194,19 +144,8 @@ class EditToDoFragmentTest {
     fun submitEmptyDescriptionTextField_noDbUpdate() {
 
         var oldThingToDo : ThingToDo? = null
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
             oldThingToDo = it.viewModel!!.getThingToDo(0).getOrAwaitValueTest()
         }
 
@@ -229,19 +168,8 @@ class EditToDoFragmentTest {
     fun submitEmptyDateTextField_noDbUpdate() {
 
         var oldThingToDo : ThingToDo? = null
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
             oldThingToDo = it.viewModel!!.getThingToDo(0).getOrAwaitValueTest()
         }
 
@@ -264,19 +192,8 @@ class EditToDoFragmentTest {
     fun submitEmptyTimeTextField_noDbUpdate() {
 
         var oldThingToDo : ThingToDo? = null
-        val navController = Mockito.mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
             oldThingToDo = it.viewModel!!.getThingToDo(0).getOrAwaitValueTest()
         }
 
@@ -298,24 +215,10 @@ class EditToDoFragmentTest {
     @Test
     fun submitValidTitleTextField_dbUpdateTitle() {
 
-        val navController = Mockito.mock(NavController::class.java)
         val newValidThingToDoName = "${AndroidTestUtilities.validThingToDoName}1"
         var oldThingToDo : ThingToDo = AndroidTestUtilities.getValidThingToDo(
             name = newValidThingToDoName
         )
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
-        scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
 
         Espresso.onView(ViewMatchers.withId(R.id.title_input)).perform(
             ViewActions.replaceText(newValidThingToDoName)
@@ -334,24 +237,10 @@ class EditToDoFragmentTest {
     @Test
     fun submitValidDescriptionTextField_dbUpdateTitle() {
 
-        val navController = Mockito.mock(NavController::class.java)
         val newValidThingToDoDescription = "${AndroidTestUtilities.validThingToDoDescription}1"
         var oldThingToDo : ThingToDo = AndroidTestUtilities.getValidThingToDo(
             description = newValidThingToDoDescription
         )
-
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
-        scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
 
         Espresso.onView(ViewMatchers.withId(R.id.description_input)).perform(
             ViewActions.replaceText(newValidThingToDoDescription)
@@ -370,19 +259,8 @@ class EditToDoFragmentTest {
     @Test
     fun submitValidDateTextField_dbUpdateTitle() {
 
-        val navController = Mockito.mock(NavController::class.java)
         var newValidThingToDoDate : Date? = null
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
         scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
             it.calender.add(Calendar.DAY_OF_MONTH, 10)
             newValidThingToDoDate = it.calender.time
         }
@@ -403,20 +281,9 @@ class EditToDoFragmentTest {
 
     @Test
     fun submitValidTimeTextField_dbUpdateTitle() {
-
-        val navController = Mockito.mock(NavController::class.java)
         var newValidThingToDoDate : Date? = null
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
             it.calender.add(Calendar.MINUTE, 10)
             newValidThingToDoDate = it.calender.time
         }
@@ -437,20 +304,6 @@ class EditToDoFragmentTest {
 
     @Test
     fun submitValidCheckedStatus_dbUpdateIsDone() {
-
-        val navController = Mockito.mock(NavController::class.java)
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
-
-        scenario.onFragment {
-            Navigation.setViewNavController(it.requireView(), navController)
-        }
 
         Espresso.onView(ViewMatchers.withId(R.id.done_checkbox)).perform(
             ViewActions.click()
@@ -473,14 +326,6 @@ class EditToDoFragmentTest {
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
-        val scenario = launchFragmentInContainer<EditToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment {
             navController.setGraph(R.navigation.nav_graph)
