@@ -3,6 +3,7 @@ package com.example.thingstodo.fragments
 import android.widget.TextView
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.core.os.bundleOf
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
@@ -31,22 +32,23 @@ class ThingToDoFragmentTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var androidTestFragmentFactory: AndroidTestFragmentFactory
+    private lateinit var scenario: FragmentScenario<ThingToDoFragment>
 
     @Before
     fun setup() {
-        androidTestFragmentFactory = AndroidTestFragmentFactory()
-    }
-
-    @Test
-    fun correctThingToDoNameIsDisplayed() {
-        val scenario = launchFragmentInContainer<ThingToDoFragment>(
+        val androidTestFragmentFactory = AndroidTestFragmentFactory()
+        scenario = launchFragmentInContainer<ThingToDoFragment>(
             factory = androidTestFragmentFactory,
             themeResId = R.style.Theme_ThingsToDo,
             initialState = Lifecycle.State.CREATED,
             fragmentArgs = bundleOf(ThingToDoFragment.ID to 0)
         )
         scenario.moveToState(Lifecycle.State.RESUMED)
+
+    }
+
+    @Test
+    fun correctThingToDoNameIsDisplayed() {
 
         val thingToDoNameTextView = onView(Matchers.allOf(
             withText(AndroidTestUtilities.validThingToDoName),
@@ -58,13 +60,6 @@ class ThingToDoFragmentTest {
 
     @Test
     fun correctThingToDoDescriptionIsDisplayed() {
-        val scenario = launchFragmentInContainer<ThingToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(ThingToDoFragment.ID to 0)
-        )
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         val thingToDoDescriptionTextView = onView(Matchers.allOf(
             withText(AndroidTestUtilities.validThingToDoDescription),
@@ -76,14 +71,7 @@ class ThingToDoFragmentTest {
 
     @Test
     fun thingToDoDateIsDisplayed() {
-        val scenario = launchFragmentInContainer<ThingToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(ThingToDoFragment.ID to 0)
-        )
         var datetext : String = ""
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment{
             datetext = it.view!!.findViewById<TextView>(R.id.date_textView).text.toString()
@@ -96,14 +84,6 @@ class ThingToDoFragmentTest {
     fun pressFab_navigateToEditThingToDoFragment_withMockito() {
 
         val navController = mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<ThingToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(ThingToDoFragment.ID to 0)
-        )
-        scenario.moveToState(Lifecycle.State.RESUMED)
         scenario.onFragment{
             Navigation.setViewNavController(it.requireView(), navController)
         }
@@ -120,14 +100,6 @@ class ThingToDoFragmentTest {
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
-
-        val scenario = launchFragmentInContainer<ThingToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(ThingToDoFragment.ID to 0)
-        )
-        scenario.moveToState(Lifecycle.State.RESUMED)
         scenario.onFragment{
             navController.setGraph(R.navigation.nav_graph)
             navController.setCurrentDestination(R.id.thingToDoFragment)
@@ -145,15 +117,6 @@ class ThingToDoFragmentTest {
         val navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
-
-        val scenario = launchFragmentInContainer<ThingToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo,
-            initialState = Lifecycle.State.CREATED,
-            fragmentArgs = bundleOf(EditToDoFragment.ID to 0)
-        )
-
-        scenario.moveToState(Lifecycle.State.RESUMED)
 
         scenario.onFragment{
             navController.setGraph(R.navigation.nav_graph)
