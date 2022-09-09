@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.thingstodo.getOrAwaitValueTest
+import com.example.thingstodo.model.ThingToDo
 import com.example.thingstodo.storage.database.ThingToDoRoomDatabase
 import com.example.thingstodo.utilities.AndroidTestUtilities
 import com.google.common.truth.Truth.assertThat
@@ -15,6 +16,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import kotlin.properties.Delegates
 
 @ExperimentalCoroutinesApi
 @SmallTest
@@ -24,11 +26,14 @@ class ThingToDoDaoTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var database: ThingToDoRoomDatabase
-
     private lateinit var dao : ThingToDoDao
+    private lateinit var thingToDo : ThingToDo
+    private var id by Delegates.notNull<Int>()
 
     @Before
     fun setUp() {
+        id = 1
+        thingToDo = AndroidTestUtilities.getValidThingToDo(id)
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         database = Room.inMemoryDatabaseBuilder(appContext, ThingToDoRoomDatabase::class.java)
             .allowMainThreadQueries()
@@ -43,7 +48,6 @@ class ThingToDoDaoTest {
 
     @Test
     fun insertThingToDoItem() = runBlockingTest {
-        val thingToDo = AndroidTestUtilities.getValidThingToDo(1)
         dao.insertThingToDo(thingToDo)
 
         val allThingsToDo = dao.observeThingsToDo().asLiveData().getOrAwaitValueTest()
@@ -54,7 +58,6 @@ class ThingToDoDaoTest {
 
     @Test
     fun deleteThingToDoItem() = runBlockingTest {
-        val thingToDo = AndroidTestUtilities.getValidThingToDo(1)
         dao.insertThingToDo(thingToDo)
         dao.deleteThingToDo(thingToDo)
 
@@ -65,7 +68,6 @@ class ThingToDoDaoTest {
 
     @Test
     fun updateThingToDoItem() = runBlockingTest {
-        var thingToDo = AndroidTestUtilities.getValidThingToDo(1)
         dao.insertThingToDo(thingToDo)
         thingToDo = AndroidTestUtilities.getValidThingToDo(
             id = 1,
@@ -80,8 +82,6 @@ class ThingToDoDaoTest {
 
     @Test
     fun observeThingToDoItem() = runBlockingTest {
-        val id = 1
-        val thingToDo = AndroidTestUtilities.getValidThingToDo(id)
         dao.insertThingToDo(thingToDo)
 
         val observedThingToDo = dao.observeThingToDo(id).asLiveData().getOrAwaitValueTest()
