@@ -57,5 +57,51 @@ class ThingToDoVewModelTest {
         assertThat(value.getContentIfNotHandled()?.status).isEqualTo(Status.ERROR)
     }
 
+    @Test
+    fun getThingToDo_returnThingToDoFromDb() {
+        val newThingToDo = AndroidTestUtilities.getValidThingToDo()
+        viewModel.addNewThingToDo(newThingToDo.name, newThingToDo.description, newThingToDo.timeStamp)
+
+        viewModel.allThingsToDo.getOrAwaitValueTest()
+
+        val thingToDo = viewModel.getThingToDo(0).getOrAwaitValueTest()
+        assertThat(thingToDo).isEqualTo(newThingToDo)
+    }
+
+    @Test
+    fun addNewThingToDo_insertsThingToDoInDb() {
+        viewModel.addNewThingToDo(AndroidTestUtilities.validThingToDoName, AndroidTestUtilities.validThingToDoDescription, AndroidTestUtilities.validThingToDoDate)
+
+        val thingsToDo = viewModel.allThingsToDo.getOrAwaitValueTest()
+
+        assertThat(thingsToDo).isNotEmpty()
+    }
+
+    @Test
+    fun updateThingToDo_updatesThingToDoInDb() {
+        val newThingToDo = AndroidTestUtilities.getValidThingToDo(
+            name = "${AndroidTestUtilities.validThingToDoName}1",
+            description = "${AndroidTestUtilities.validThingToDoDescription}1",
+            done = true
+        )
+        viewModel.addNewThingToDo(AndroidTestUtilities.validThingToDoName, AndroidTestUtilities.validThingToDoDescription, AndroidTestUtilities.validThingToDoDate)
+        viewModel.updateNewThingToDo(newThingToDo.id, newThingToDo.name, newThingToDo.description, newThingToDo.timeStamp, newThingToDo.done)
+
+        val thingsToDo = viewModel.allThingsDone.getOrAwaitValueTest()
+        assertThat(thingsToDo).contains(newThingToDo)
+    }
+
+    @Test
+    fun deleteThingToDo_deletesThingToDoInDb() {
+        val name = AndroidTestUtilities.validThingToDoName
+        val description = AndroidTestUtilities.validThingToDoDescription
+        val date = AndroidTestUtilities.validThingToDoDate
+
+        viewModel.addNewThingToDo(name, description, date)
+        viewModel.deleteThingToDo(0, name, description, date)
+        val thingsToDo = viewModel.allThingsToDo.getOrAwaitValueTest()
+        assertThat(thingsToDo).isEmpty()
+    }
+
     // TODO: Test Setting and Cancelling of Alarms upon database insertions, updates and deletions.
 }
