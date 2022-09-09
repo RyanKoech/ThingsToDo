@@ -1,6 +1,7 @@
 package com.example.thingstodo.fragments
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -27,20 +28,27 @@ class ToDoFragmentTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var androidTestFragmentFactory: AndroidTestFragmentFactory
+    private lateinit var scenario: FragmentScenario<ToDoFragment>
+    private lateinit var navController : NavController
 
     @Before
     fun setup() {
-        androidTestFragmentFactory = AndroidTestFragmentFactory()
+
+        navController = mock(NavController::class.java)
+        val androidTestFragmentFactory = AndroidTestFragmentFactory()
+        scenario = launchFragmentInContainer<ToDoFragment>(
+            factory = androidTestFragmentFactory,
+            themeResId = R.style.Theme_ThingsToDo
+        )
+
+        scenario.onFragment{
+            Navigation.setViewNavController(it.view!!, navController)
+        }
+
     }
 
     @Test
     fun fabViewIsDisplayed() {
-
-        launchFragmentInContainer<ToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
 
         val fab = onView(Matchers.allOf(
             withId(R.id.to_do_list_fab),
@@ -53,11 +61,6 @@ class ToDoFragmentTest {
     @Test
     fun recyclerViewIsDisplayed() {
 
-        launchFragmentInContainer<ToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
         val recyclerView = onView(Matchers.allOf(
             withId(R.id.to_do_recycler_view),
             isDisplayed()
@@ -69,17 +72,6 @@ class ToDoFragmentTest {
     @Test
     fun pressFab_navigateToAddThingToDoFragment() {
 
-        val navController = mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<ToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        scenario.onFragment{
-            Navigation.setViewNavController(it.view!!, navController)
-        }
-
         onView(withId(R.id.to_do_list_fab)).perform(click())
 
         verify(navController).navigate(
@@ -90,16 +82,6 @@ class ToDoFragmentTest {
     @Test
     fun pressActionbarSettingsIcon_navigateToSettingsFragment() {
         // TODO : Investigate why the actionbar is not being displayed during testing
-        val navController = mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<ToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        scenario.onFragment{
-            Navigation.setViewNavController(it.view!!, navController)
-        }
 
         onView(withId(R.id.action_settings)).perform(click())
 
@@ -111,15 +93,7 @@ class ToDoFragmentTest {
     @Test
     fun clickThingToDoListItem_navigateToThingToDoFragment() {
 
-        val navController = mock(NavController::class.java)
-
-        val scenario = launchFragmentInContainer<ToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
         scenario.onFragment{
-            Navigation.setViewNavController(it.view!!, navController)
             // it.viewModels<ThingToDoViewModel>().value.addNewThingToDo(AndroidTestUtilities.validThingToDoName, AndroidTestUtilities.validThingToDoDescription, AndroidTestUtilities.validThingToDoDate)
             it.viewModel!!.addNewThingToDo(AndroidTestUtilities.validThingToDoName, AndroidTestUtilities.validThingToDoDescription, AndroidTestUtilities.validThingToDoDate)
         }
