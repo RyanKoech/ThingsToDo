@@ -1,6 +1,7 @@
 package com.example.thingstodo.fragments
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -19,31 +20,36 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import java.util.*
 
 class AddToDoFragmentTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var androidTestFragmentFactory: AndroidTestFragmentFactory
+    private lateinit var scenario: FragmentScenario<AddToDoFragment>
 
     @Before
     fun setup() {
-        androidTestFragmentFactory = AndroidTestFragmentFactory()
-    }
-
-    @Test
-    fun submitEmptyTitleTextField_setErrorOnTextField() {
-
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
+        val date = AndroidTestUtilities.validThingToDoDate
+        val androidTestFragmentFactory = AndroidTestFragmentFactory()
+        scenario =  launchFragmentInContainer<AddToDoFragment>(
             factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
+            themeResId = R.style.Theme_ThingsToDo,
         )
 
-        val date = AndroidTestUtilities.validThingToDoDate
+        onView(withId(R.id.title_input)).perform(
+            replaceText(AndroidTestUtilities.validThingToDoName)
+        )
 
         onView(withId(R.id.description_input)).perform(
             replaceText(AndroidTestUtilities.validThingToDoDescription)
+        )
+
+        onView(withId(R.id.time_input)).perform(
+            replaceText(
+                CustomUtility.getFormattedTimeString(date)
+            )
         )
 
         onView(withId(R.id.date_input)).perform(
@@ -51,11 +57,13 @@ class AddToDoFragmentTest {
                 CustomUtility.getFormattedDateString(date)
             )
         )
+    }
 
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
+    @Test
+    fun submitEmptyTitleTextField_setErrorOnTextField() {
+
+        onView(withId(R.id.title_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -71,27 +79,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyDescriptionTextField_setErrorOnTextField() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
+        onView(withId(R.id.description_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -107,25 +96,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyDateTextField_setErrorOnTextField() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
+        onView(withId(R.id.date_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -141,25 +113,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyTimeTextField_setErrorOnTextField() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
+        onView(withId(R.id.time_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -175,27 +130,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyTitleTextField_noDbInsertion() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
+        onView(withId(R.id.title_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -212,27 +148,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyDescriptionTextField_noDbInsertion() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
+        onView(withId(R.id.description_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -249,25 +166,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyDateTextField_noDbInsertion() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
+        onView(withId(R.id.date_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -284,25 +184,8 @@ class AddToDoFragmentTest {
     @Test
     fun submitEmptyTimeTextField_noDbInsertion() {
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
+        onView(withId(R.id.time_input)).perform(
+            replaceText("")
         )
 
         onView(withId(R.id.add_to_do_fab)).perform(
@@ -321,36 +204,9 @@ class AddToDoFragmentTest {
 
         val navController = mock(NavController::class.java)
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
         scenario.onFragment {
             Navigation.setViewNavController(it.requireView(), navController)
         }
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
-        )
 
         onView(withId(R.id.add_to_do_fab)).perform(
             click()
@@ -368,36 +224,9 @@ class AddToDoFragmentTest {
 
         val navController = mock(NavController::class.java)
 
-        val scenario = launchFragmentInContainer<AddToDoFragment>(
-            factory = androidTestFragmentFactory,
-            themeResId = R.style.Theme_ThingsToDo
-        )
-
         scenario.onFragment {
             Navigation.setViewNavController(it.requireView(), navController)
         }
-
-        val date = AndroidTestUtilities.validThingToDoDate
-
-        onView(withId(R.id.title_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoName)
-        )
-
-        onView(withId(R.id.description_input)).perform(
-            replaceText(AndroidTestUtilities.validThingToDoDescription)
-        )
-
-        onView(withId(R.id.date_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedDateString(date)
-            )
-        )
-
-        onView(withId(R.id.time_input)).perform(
-            replaceText(
-                CustomUtility.getFormattedTimeString(date)
-            )
-        )
 
         onView(withId(R.id.add_to_do_fab)).perform(
             click()
