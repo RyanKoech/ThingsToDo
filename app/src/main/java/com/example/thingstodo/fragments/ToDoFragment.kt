@@ -2,6 +2,7 @@ package com.example.thingstodo.fragments
 
 import android.os.Bundle
 import android.view.*
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -15,14 +16,16 @@ import com.example.thingstodo.databinding.FragmentToDoBinding
 import com.example.thingstodo.model.ThingToDo
 import com.example.thingstodo.viewmodel.ThingToDoViewModel
 
-class ToDoFragment : Fragment() {
+class ToDoFragment(
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal var viewModel: ThingToDoViewModel? = null
+) : Fragment() {
     private var _binding: FragmentToDoBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private val showDone : MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>(false)
     }
-    private lateinit var viewModel : ThingToDoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +35,12 @@ class ToDoFragment : Fragment() {
     override fun onCreateView (
         inflater : LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle? ) : View? {
+        savedInstanceState: Bundle? ) : View {
 
         _binding = FragmentToDoBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        viewModel = ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
+        viewModel = viewModel ?: ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
 
         binding.toDoListFab.setOnClickListener{ view ->
             val action = R.id.action_toDoFragment_to_addToDo
@@ -62,11 +65,15 @@ class ToDoFragment : Fragment() {
             observableList.removeObservers(this.viewLifecycleOwner)
 
             if(newValue == true){
-                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do_done)
-                observableList = viewModel.allThingsDone as MutableLiveData
+                observableList = viewModel!!.allThingsDone as MutableLiveData
+                if(activity is AppCompatActivity){
+                    (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do_done)
+                }
             }else {
-                observableList = viewModel.allThingsToDo as MutableLiveData
-                (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do)
+                observableList = viewModel!!.allThingsToDo as MutableLiveData
+                if(activity is AppCompatActivity){
+                    (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.fragment_to_do)
+                }
             }
             observableList.observe(this.viewLifecycleOwner) { items ->
                 items.let{
@@ -112,10 +119,10 @@ class ToDoFragment : Fragment() {
     }
 
     private fun updateThingToDo(thingToDo: ThingToDo){
-        viewModel.updateNewThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp, !thingToDo.done)
+        viewModel!!.updateNewThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp, !thingToDo.done)
     }
 
     private fun deleteThingToDo(thingToDo: ThingToDo){
-        viewModel.deleteThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp)
+        viewModel!!.deleteThingToDo(thingToDo.id, thingToDo.name, thingToDo.description, thingToDo.timeStamp)
     }
 }

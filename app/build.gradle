@@ -69,7 +69,33 @@ dependencies {
     //SplashScreen API
     implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 
+    //UNIT TESTING
     testImplementation 'junit:junit:4.13.2'
+
+    //INSTRUMENTED TESTING
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+
+    //Kotlin Coroutines Test
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1'
+
+    //InstantTask Executor Rule
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    //Truth
+    androidTestImplementation "com.google.truth:truth:1.1.3"
+
+    //Espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation('androidx.test.espresso:espresso-contrib:3.4.0') {
+        exclude group: 'org.checkerframework', module : 'checker'
+    }
+
+    //Mockito
+    androidTestImplementation 'org.mockito:mockito-android:3.2.4'
+
+    //Fragment Testing
+    debugImplementation "androidx.fragment:fragment-testing:1.5.2"
+
+    //TestNavHostController
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
 }

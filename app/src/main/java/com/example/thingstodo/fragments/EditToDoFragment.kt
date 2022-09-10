@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -15,17 +16,21 @@ import com.example.thingstodo.viewmodel.ThingToDoViewModel
 import java.util.*
 import kotlin.properties.Delegates
 
-class EditToDoFragment : Fragment() {
+class EditToDoFragment(
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal var viewModel : ThingToDoViewModel? = null
+) : Fragment() {
 
     companion object {
         val ID = "id"
     }
 
     private var _binding : FragmentEditToDoBinding? = null
-    private val binding get() = _binding!!
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal val binding get() = _binding!!
     private var thingToDoId by Delegates.notNull<Int>()
-    private val calender = Calendar.getInstance()
-    private lateinit var viewModel : ThingToDoViewModel
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal val calender = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -41,9 +46,9 @@ class EditToDoFragment : Fragment() {
         _binding = FragmentEditToDoBinding.inflate(inflater, container,false)
         val view = binding.root
 
-        viewModel = ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
+        viewModel = viewModel ?: ViewModelProvider(requireActivity()).get(ThingToDoViewModel::class.java)
 
-        viewModel.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner){ thingTodo ->
+        viewModel!!.getThingToDo(thingToDoId).observe(this.viewLifecycleOwner){ thingTodo ->
             calender.time = thingTodo.timeStamp
             binding.titleInput.setText(thingTodo.name)
             binding.descriptionInput.setText(thingTodo.description)
@@ -148,11 +153,11 @@ class EditToDoFragment : Fragment() {
     }
 
     private fun updateThingToDo(){
-        viewModel.updateNewThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time, binding.doneCheckbox.isChecked)
+        viewModel!!.updateNewThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time, binding.doneCheckbox.isChecked)
     }
 
     private fun deleteThingToDo(){
-        viewModel.deleteThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
+        viewModel!!.deleteThingToDo(thingToDoId, binding.titleInput.text.toString(), binding.descriptionInput.text.toString(), calender.time)
     }
 
 }
