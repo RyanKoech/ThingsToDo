@@ -34,12 +34,13 @@ It is therefore bound to grow in complexity with improves to performance, functi
 - [X] Show notifcations 30 minutes before due time
 - [X] Migrate to Android 12 splash screen API. *Yet to know how to sync theme with shared pref
 - [X] Properly Adopt Material Theming
+- [X] Write Unit and Instrumented Tests
 - [ ] Dynamically display due and overdue tasks
 - [ ] Sync notifications with done and undone tasks
 - [ ] Enable undo delete using snackbar
 - [ ] Better display time
 - [ ] Migrate to Jetpack Compose
-- [ ] Write Unit and Instrumented Tests (On going... 🚧)
+- [ ] Implemented DI for Instrumented Tests and Action bar UI Tests
 
 ## Screenshots
 ### Light
